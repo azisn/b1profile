@@ -2,7 +2,6 @@
 import Layout from "@/layouts/Layout.astro";
 import HeroSection from "@/components/home/HeroSection.astro";
 import SectionHeader from "@/components/elements/SectionHeader.astro";
-import Pricing from "@/components/sections/Pricing.astro";
 import FAQ from "@/components/sections/FAQ.astro";
 import BlogSection from "@/components/sections/BlogSection.astro";
 import Button from "@/components/ui/Button.astro";
@@ -10,7 +9,7 @@ import BrowserFrame from "@/components/ui/BrowserFrame.astro";
 import TechStackCard from "@/components/cards/TechStackCard.astro";
 import { siteConfig } from "@/config/site";
 import {
-  ShoppingBag, Database, Server, Zap, Boxes, Clock,
+  ShoppingBag, Database, Server, Boxes,
   ShieldCheck, Factory, Package, Globe,
   ArrowRight, LayoutDashboard, Layers, FileText,
   ChartNoAxesColumnIncreasing, Tag, Users, CheckCheck
@@ -19,28 +18,28 @@ import {
 // FAQ data
 const faqItems = [
   {
-    question: "Apakah B1connect mendukung multi-tenant untuk banyak toko Shopify?",
-    answer: "Ya. B1connect dirancang dengan arsitektur multi-tenant sejati. Anda dapat mengelola banyak toko Shopify sekaligus, baik untuk cabang toko, brand berbeda, maupun anak perusahaan yang terhubung ke SAP Business One."
+    question: "Does B1connect support multi-tenant architecture for multiple Shopify stores?",
+    answer: "Yes. B1connect is architected with native multi-tenancy. You can connect and manage multiple Shopify storefronts—such as regional branches, sub-brands, or subsidiary brands—orchestrated into a single SAP Business One instance."
   },
   {
-    question: "Data apa saja yang disinkronisasi antara Shopify dan SAP B1?",
-    answer: "Data yang disinkronkan mencakup 5 modul utama: Master Produk (Item Master), Stok Inventory multi-warehouse, Daftar Harga (Price List), Sales Orders, dan Informasi Pelanggan (Business Partner). Berjalan via webhook instan dan polling otomatis."
+    question: "What core data points are synchronized between Shopify and SAP B1?",
+    answer: "B1connect synchronizes 5 mission-critical data pipelines: Item Master catalog, Multi-Warehouse Inventory Stock, Price Lists & Currencies, Sales Orders (ORDR documents), and Business Partner (Customer) accounts via instant webhooks and intelligent polling."
   },
   {
-    question: "Bagaimana keamanan data dan kredensial SAP kami?",
-    answer: "Keamanan adalah prioritas utama. Seluruh kredensial SAP B1 dan token Shopify dienkripsi menggunakan AES-256-GCM. Webhook Shopify diverifikasi menggunakan signature HMAC-SHA256, dan session diamankan dengan JWT."
+    question: "How are our SAP database credentials and tokens secured?",
+    answer: "Security is non-negotiable. All SAP Service Layer credentials and Shopify access tokens are encrypted at-rest using AES-256-GCM. Webhooks are cryptographically authenticated via constant-time HMAC-SHA256 signatures, and sessions use JWT."
   },
   {
-    question: "Apakah mendukung SAP Business One on-premise dan SQL / HANA?",
-    answer: "Ya. B1connect berkomunikasi melalui SAP B1 Service Layer API resmi, sehingga mendukung deployment on-premise maupun cloud, baik database Microsoft SQL Server maupun SAP HANA."
+    question: "Does it support both On-Premise and Cloud SAP B1 (SQL Server & HANA)?",
+    answer: "Yes. B1connect interfaces strictly through the official SAP Business One Service Layer REST API, providing native support for on-premise servers, cloud instances, Microsoft SQL Server, and SAP HANA databases."
   },
   {
-    question: "Berapa lama estimasi waktu setup dan go-live?",
-    answer: "Untuk toko yang sudah memiliki akses Service Layer SAP B1 aktif, proses setup awal biasanya selesai dalam 1-2 hari kerja: instalasi app, pemetaan field (mapping data), dan verifikasi transaksi test order."
+    question: "How long does deployment and onboarding take?",
+    answer: "For merchants with active SAP B1 Service Layer access, typical onboarding takes less than 24-48 hours: install the app, map field attributes via the guided wizard, and execute end-to-end sandbox test transactions."
   },
   {
-    question: "Apakah perlu instalasi add-on atau modifikasi di dalam SAP?",
-    answer: "Tidak perlu add-on tambahan di core SAP. B1connect memanfaatkan Service Layer standar SAP Business One, sehingga database ERP Anda tetap aman tanpa risiko modifikasi kustom yang mengganggu upgrade SAP di masa mendatang."
+    question: "Does B1connect require custom add-ons or modifications inside core SAP?",
+    answer: "No. B1connect does not require invasive core add-ons or stored-procedure overrides. By leveraging the standard official Service Layer, your ERP remains 100% compliant and fully upgrade-safe for future SAP patches."
   },
 ];
 
@@ -48,33 +47,33 @@ const faqItems = [
 const features = [
   {
     icon: "/assets/icon/structure.png",
-    title: "Sinkronisasi Bi-Directional",
-    desc: "Produk, stok, dan harga mengalir otomatis dari SAP B1 ke Shopify. Sales order dan data customer langsung masuk ke SAP B1 tanpa input manual."
+    title: "Bidirectional Synchronization",
+    desc: "Products, stock levels, and price lists flow seamlessly from SAP B1 to Shopify. Customer checkouts and sales orders flow back into SAP B1 instantly with zero manual entry."
   },
   {
     icon: "/assets/icon/motion.png",
-    title: "Keamanan Standar Enterprise",
-    desc: "Enkripsi AES-256-GCM untuk seluruh kredensial database & token. Validasi signature HMAC-SHA256 untuk webhook Shopify dan autentikasi token JWT."
+    title: "Enterprise-Grade Security",
+    desc: "AES-256-GCM encryption for all secrets at rest. Constant-time HMAC-SHA256 signature verification for Shopify webhooks and JWT-authenticated session tokens."
   },
   {
     icon: "/assets/icon/components.png",
-    title: "Arsitektur Multi-Tenant",
-    desc: "Satu instalasi middleware mendukung banyak toko Shopify dan cabang gudang. Setiap tenant memiliki konfigurasi dan isolasi data terpisah."
+    title: "True Multi-Tenant Engine",
+    desc: "A single middleware cluster powers multiple Shopify storefronts and warehouse centers. Complete tenant isolation guarantees zero data leakage."
   },
   {
     icon: "/assets/icon/customize.png",
-    title: "Field Mapping Fleksibel",
-    desc: "Pemetaan kustom ItemCode ke SKU Shopify, nama produk, UoM (satuan), dan kode gudang tanpa perlu mengubah kode sumber backend."
+    title: "Flexible Field Mapping",
+    desc: "Configurable mapping for ItemCode to SKU, product attributes, Units of Measure (UoM), and warehouse routing rules without altering backend source code."
   },
   {
     icon: "/assets/icon/document.png",
-    title: "Audit Trail & Monitoring",
-    desc: "Log terperinci untuk setiap event transaksi. Pantau riwayat sinkronisasi order, deteksi error sedini mungkin, dan jalankan re-sync instan."
+    title: "Audit Trail & Live Monitoring",
+    desc: "Granular telemetry logs for every sync event. Inspect transaction payloads, detect discrepancies with proactive alerts, and trigger instant re-syncs."
   },
   {
     icon: "/assets/icon/fast.png",
     title: "High-Performance Engine",
-    desc: "Dibangun dengan .NET 10, Redis cache, dan Hangfire background worker untuk pemrosesan ribuan SKU dan order secara simultan dan efisien."
+    desc: "Built on .NET 10, Redis caching, and Hangfire background queues to orchestrate tens of thousands of SKUs and orders with sub-second latency."
   },
 ];
 
@@ -82,53 +81,70 @@ const features = [
 const problems = [
   {
     icon: "/assets/icon/clock.png",
-    title: "Input manual memakan waktu & rentan salah",
-    desc: "Mengetik ulang pesanan pelanggan dari Shopify ke SAP B1 satu per satu menghabiskan waktu berjam-jam setiap hari dan rentan human error atau pesanan tertinggal."
+    title: "Manual data entry wastes hours and causes errors",
+    desc: "Re-keying customer orders from Shopify into SAP B1 by hand drains hundreds of team hours and inevitably leads to costly typos and misplaced shipments."
   },
   {
     icon: "/assets/icon/battery.png",
-    title: "Stok tidak sinkron = pembatalan pesanan",
-    desc: "Stok habis di gudang fisik tapi masih tampil tersedia di Shopify. Pelanggan memesan barang yang tidak ada, menyebabkan kekecewaan dan rating buruk."
+    title: "Desynchronized inventory leads to painful overselling",
+    desc: "When warehouse stock sells out physically but still displays as available on Shopify, angry customer cancellations and negative store reviews follow."
   },
   {
     icon: "/assets/icon/bell.png",
-    title: "Harga berubah di SAP, toko online terlambat update",
-    desc: "Perubahan daftar harga di SAP Business One harus diupdate manual ke setiap channel toko online. Keterlambatan update harga menggerus margin laba perusahaan."
+    title: "Pricing updates in SAP lag behind storefronts",
+    desc: "Manual updates across multiple storefronts cause delays when ERP price matrices change, quietly eroding business profit margins on every order."
   },
 ];
 
 // Use cases
 const useCases = [
-  { icon: ShoppingBag, label: "Retail & DTC", desc: "Toko online Shopify dengan gudang SAP B1" },
-  { icon: Factory, label: "Manufaktur & Pabrik", desc: "Penjualan langsung dari inventori pabrik" },
-  { icon: Package, label: "Distributor & Grosir B2B", desc: "Volume pesanan besar langsung masuk ke ERP" },
-  { icon: Globe, label: "Multi-Store Brand", desc: "Kelola banyak toko Shopify dalam satu dashboard" },
-  { icon: Boxes, label: "Inventory-Heavy", desc: "Puluhan ribu SKU dengan akurasi stok ketat" },
-  { icon: ShieldCheck, label: "Konsultan ERP & SAP", desc: "Solusi integrasi siap pasang untuk klien SAP" },
+  { icon: ShoppingBag, label: "Retail & DTC", desc: "Omnichannel Shopify stores connected to SAP B1 fulfillment" },
+  { icon: Factory, label: "Manufacturing", desc: "Direct sales fulfilled straight from factory warehouse floors" },
+  { icon: Package, label: "B2B Wholesale & Distributors", desc: "High-volume order streams pushed directly into ERP ledgers" },
+  { icon: Globe, label: "Multi-Brand Portfolios", desc: "Manage multiple regional Shopify storefronts in one hub" },
+  { icon: Boxes, label: "High-SKU Catalogs", desc: "Tens of thousands of SKUs requiring strict stock accuracy" },
+  { icon: ShieldCheck, label: "SAP & ERP Consultancies", desc: "Turnkey, dependable integration accelerator for SAP clients" },
 ];
 
 // Tech stack and ecosystem partners
 const logos = [
-  { name: "Shopify", icon: ShoppingBag },
-  { name: "SAP B1", icon: Database },
-  { name: "PostgreSQL", icon: Server },
-  { name: "Redis", icon: Zap },
-  { name: "Docker", icon: Boxes },
-  { name: "Hangfire", icon: Clock },
+  { name: "Shopify (Live)", icon: ShoppingBag },
+  { name: "SAP B1 (Live)", icon: Database },
+  { name: "SAP S/4HANA", icon: Server },
+  { name: "Oracle NetSuite", icon: Layers },
+  { name: "Dynamics 365", icon: Boxes },
+  { name: "WooCommerce", icon: Globe },
+];
+
+// Integrations Ecosystem Data
+const integrationsCommerce = [
+  { name: "Shopify", status: "Live & Production-Ready", live: true, desc: "Bidirectional sync, sub-second webhooks, multi-warehouse inventory." },
+  { name: "WooCommerce", status: "In Active Development", live: false, desc: "REST API v3 connector for catalog and order ingestion." },
+  { name: "Magento / Adobe Commerce", status: "Pipeline", live: false, desc: "GraphQL & Bulk Async API integration for enterprise storefronts." },
+  { name: "TikTok Shop", status: "Pipeline", live: false, desc: "Direct social commerce sync for orders and fast-moving inventory." },
+  { name: "Amazon Marketplace", status: "Pipeline", live: false, desc: "Selling Partner SP-API order routing and FBA/FBM balance." },
+];
+
+const integrationsErp = [
+  { name: "SAP Business One", status: "Live & Production-Ready", live: true, desc: "Official Service Layer REST API for HANA and SQL Server." },
+  { name: "SAP S/4HANA", status: "In Active Development", live: false, desc: "Enterprise OData v4 APIs for Cloud and On-Premises editions." },
+  { name: "Oracle NetSuite", status: "Pipeline", live: false, desc: "SuiteTalk REST Web Services & custom records synchronization." },
+  { name: "Microsoft Dynamics 365", status: "Pipeline", live: false, desc: "Business Central cloud OData & event-driven webhooks." },
+  { name: "Odoo Enterprise", status: "Pipeline", live: false, desc: "External REST & XML-RPC APIs for inventory and sales orders." },
 ];
 
 // Pipelines
 const pipelines = [
-  { title: "Master Produk", direction: "SAP → Shopify", icon: Package, desc: "ItemCode, nama produk, kategori, dan deskripsi." },
-  { title: "Inventory Stok", direction: "SAP → Shopify", icon: Boxes, desc: "Update stok real-time multi-warehouse (gudang)." },
-  { title: "Price Lists", direction: "SAP → Shopify", icon: Tag, desc: "Sinkronisasi mata uang dan daftar harga jual." },
-  { title: "Sales Orders", direction: "Shopify → SAP", icon: ShoppingBag, desc: "Order otomatis terbit sebagai dokumen ODLN/ORDR." },
-  { title: "Data Customer", direction: "Shopify ↔ SAP", icon: Users, desc: "Pencocokan Business Partner (BP) otomatis." },
+  { title: "Product Master", direction: "SAP → Shopify", icon: Package, desc: "ItemCode, title, categories, barcodes, and rich descriptions." },
+  { title: "Inventory Stock", direction: "SAP → Shopify", icon: Boxes, desc: "Real-time stock level synchronization across multi-warehouse locations." },
+  { title: "Price Lists", direction: "SAP → Shopify", icon: Tag, desc: "Multi-currency price lists, tier pricing, and promotional catalogs." },
+  { title: "Sales Orders", direction: "Shopify → SAP", icon: ShoppingBag, desc: "Instantly creates compliant ORDR / ODLN documents with line items." },
+  { title: "Customer Records", direction: "Shopify ↔ SAP", icon: Users, desc: "Automatic Business Partner (BP) matching and record generation." },
 ];
 ---
 
 <Layout
-  title={`${siteConfig.title} — Integrasi Shopify × SAP Business One`}
+  title={`${siteConfig.title} — Enterprise Commerce & ERP Integration Mesh`}
   description={siteConfig.meta.description}
   keywords={siteConfig.meta.keywords}
 >
@@ -139,7 +155,7 @@ const pipelines = [
   <!-- 2. Logo / Ecosystem Strip -->
   <section class="py-12 md:py-16 lg:py-20 site-container" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="400">
     <p class="text-center text-xs sm:text-sm uppercase tracking-wider font-semibold text-neutral-400 dark:text-neutral-500 mb-6">
-      Terintegrasi dengan Ekosistem ERP & E-Commerce Terpercaya
+      Trusted by Modern ERP & E-Commerce Ecosystems
     </p>
     <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-8">
       {logos.map((logo) => (
@@ -154,8 +170,8 @@ const pipelines = [
   <!-- 3. Problem Statement -->
   <section class="py-16 md:py-24 site-container">
     <SectionHeader
-      title="Tantangan Operasional Tanpa Integrasi Otomatis"
-      description="Mengelola penjualan Shopify dan ERP SAP B1 secara terpisah menimbulkan hambatan besar bagi efisiensi bisnis Anda."
+      title="Operational Bottlenecks Without Automated Integration"
+      description="Managing Shopify storefronts and SAP B1 ERP in silos cripples your team's operational throughput."
     />
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
       {problems.map((problem, i) => (
@@ -183,9 +199,9 @@ const pipelines = [
   <!-- 4. Solution / 5 Core Pipelines -->
   <section class="py-12 md:py-16 site-container" data-aos="fade-up-xs" data-aos-once="true">
     <div class="max-w-3xl mx-auto text-center mb-10">
-      <h2 class="text-3xl md:text-4xl font-brand mb-4">Arsitektur Sinkronisasi Dua Arah (Bi-Directional)</h2>
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Bidirectional Synchronization Architecture</h2>
       <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
-        B1connect menghubungkan Shopify dengan SAP Business One melalui Service Layer API resmi. Semua data penting tersinkronisasi otomatis tanpa menyentuh core SAP.
+        B1connect bridges Shopify with SAP Business One via official Service Layer APIs. All critical commerce data flows automatically without altering core SAP logic.
       </p>
     </div>
 
@@ -222,8 +238,8 @@ const pipelines = [
   <!-- 5. Features Grid -->
   <section class="py-16 md:py-24 site-container">
     <SectionHeader
-      title="Fitur Unggulan Dirancang untuk Skalabilitas Bisnis"
-      description="Fondasi middleware modern dengan keandalan enterprise, keamanan mutakhir, dan kemudahan konfigurasi."
+      title="Engineered for Scalability and High Throughput"
+      description="A modern middleware foundation delivering enterprise stability, cryptographic security, and intuitive configuration."
     />
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
       {features.map((feature, i) => (
@@ -255,8 +271,8 @@ const pipelines = [
   <!-- 6. Product Preview - Dashboard Mock -->
   <section class="py-16 md:py-24 site-container" data-aos="fade-up-sm" data-aos-once="true">
     <SectionHeader
-      title="Dashboard Pemantauan & Event Stream Real-Time"
-      description="Pantau siklus sinkronisasi order, mutasi stok, dan status health service layer SAP B1 secara transparan dari satu layar."
+      title="Real-Time Sync Observability & Event Stream"
+      description="Monitor order cycles, inventory mutations, and SAP B1 Service Layer health metrics transparently from a unified control plane."
     />
     <div class="mt-8 max-w-4xl mx-auto" data-aos="fade-up-sm" data-aos-once="true" data-aos-delay="300">
       <BrowserFrame url="app.b1connect.id/sync/monitor">
@@ -323,9 +339,9 @@ const pipelines = [
             <div class="flex-1 rounded-lg border border-primary/10 dark:border-neutral-700 bg-bg-primary/40 dark:bg-neutral-800/40 overflow-hidden">
               <div class="grid grid-cols-12 gap-2 px-3 py-2 border-b border-primary/10 dark:border-neutral-700 text-[9px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold">
                 <span class="col-span-5">Event Source / Transaction</span>
-                <span class="col-span-3">Arah Aliran</span>
+                <span class="col-span-3">Direction</span>
                 <span class="col-span-2">Status</span>
-                <span class="col-span-2 text-right">Latensi</span>
+                <span class="col-span-2 text-right">Latency</span>
               </div>
               {[
                 { name: "Order #SH-10492 — Sales Order", flow: "Shopify → SAP B1", status: "Success", latency: "0.4s" },
@@ -356,7 +372,7 @@ const pipelines = [
         </div>
       </BrowserFrame>
       <p class="text-center text-xs text-neutral-400 dark:text-neutral-500 mt-4">
-        Pemantauan real-time dengan audit trail lengkap dan fitur retry otomatis jika koneksi SAP offline.
+        Real-time telemetry with comprehensive audit logging and automated exponential-backoff retry policies.
       </p>
     </div>
   </section>
@@ -364,8 +380,8 @@ const pipelines = [
   <!-- 7. Use Cases -->
   <section class="py-16 md:py-24 site-container">
     <SectionHeader
-      title="Dirancang untuk Beragam Model Bisnis"
-      description="Baik Anda mengelola toko DTC, distributor B2B dengan banyak gudang, atau konsultan implementasi SAP."
+      title="Purpose-Built for Modern Commerce Models"
+      description="Whether you run high-growth DTC brands, multi-warehouse B2B distribution networks, or SAP consulting practices."
     />
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-8">
       {useCases.map((uc, i) => (
@@ -390,48 +406,143 @@ const pipelines = [
   <!-- 8. Tech Stack Architecture -->
   <section class="py-16 md:py-24 site-container" data-aos="fade-up-sm" data-aos-once="true">
     <SectionHeader
-      title="Fondasi Teknologi Cloud-Native & Andal"
-      description="Stack teknologi yang teruji menjamin stabilitas data, skalabilitas tinggi, serta keamanan transaksi tanpa henti."
+      title="Cloud-Native, Resilient Technology Foundation"
+      description="A proven tech stack guaranteeing data consistency, fault tolerance, and uninterrupted transaction throughput."
     />
     <div class="mt-8" data-aos="fade-up-sm" data-aos-once="true" data-aos-delay="300">
       <TechStackCard />
     </div>
   </section>
 
-  <!-- 9. Pricing Preview -->
-  <Pricing
-    title="Pilihan Paket Integrasi"
-    description="Skema investasi transparan yang tumbuh bersama volume transaksi dan kebutuhan integrasi bisnis Anda."
-  />
+  <!-- 9. Integrations Ecosystem & Future Roadmap -->
+  <section id="integrations" class="py-16 md:py-24 site-container scroll-mt-20">
+    <SectionHeader
+      title="Integration Ecosystem & Connectors Roadmap"
+      description="Battle-tested Shopify × SAP Business One synchronization today, expanding into a universal mesh connecting multi-channel commerce with leading enterprise ERPs."
+    />
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
+      <!-- Commerce Platforms Card -->
+      <div class="p-6 md:p-8 rounded-3xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/15 shadow-xs flex flex-col justify-between" data-aos="fade-up-xs" data-aos-once="true">
+        <div>
+          <div class="flex items-center justify-between mb-6 pb-4 border-b border-dashed border-primary/10 dark:border-neutral-700">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                <ShoppingBag class="w-5 h-5" />
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-100">Commerce & Marketplaces</h3>
+                <p class="text-xs text-neutral-500">Storefronts & Channel Ingestion</p>
+              </div>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              1 Live / 4 In Pipeline
+            </span>
+          </div>
+
+          <div class="space-y-3.5">
+            {integrationsCommerce.map((item) => (
+              <div class={`p-3.5 rounded-xl border transition-all ${item.live ? 'bg-primary/5 dark:bg-primary/10 border-primary/30' : 'bg-white/40 dark:bg-neutral-800/40 border-neutral-200 dark:border-neutral-700/60'}`}>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-sm font-semibold text-neutral-900 dark:text-white flex items-center gap-2">
+                    {item.live && <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>}
+                    {item.name}
+                  </span>
+                  <span class={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${item.live ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold' : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300'}`}>
+                    {item.status}
+                  </span>
+                </div>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- ERP Engines Card -->
+      <div class="p-6 md:p-8 rounded-3xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/15 shadow-xs flex flex-col justify-between" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="100">
+        <div>
+          <div class="flex items-center justify-between mb-6 pb-4 border-b border-dashed border-primary/10 dark:border-neutral-700">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                <Database class="w-5 h-5" />
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-100">Enterprise ERP Engines</h3>
+                <p class="text-xs text-neutral-500">Core Ledger & Fulfillment Systems</p>
+              </div>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              1 Live / 4 In Pipeline
+            </span>
+          </div>
+
+          <div class="space-y-3.5">
+            {integrationsErp.map((item) => (
+              <div class={`p-3.5 rounded-xl border transition-all ${item.live ? 'bg-primary/5 dark:bg-primary/10 border-primary/30' : 'bg-white/40 dark:bg-neutral-800/40 border-neutral-200 dark:border-neutral-700/60'}`}>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-sm font-semibold text-neutral-900 dark:text-white flex items-center gap-2">
+                    {item.live && <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>}
+                    {item.name}
+                  </span>
+                  <span class={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${item.live ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold' : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300'}`}>
+                    {item.status}
+                  </span>
+                </div>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Request a Connector Banner -->
+    <div class="mt-8 p-6 md:p-8 rounded-2xl border border-dashed border-primary/25 bg-primary/5 dark:bg-primary/10 flex flex-col md:flex-row items-center justify-between gap-6" data-aos="fade-up-xs" data-aos-once="true">
+      <div class="max-w-xl text-center md:text-left">
+        <h4 class="text-base md:text-lg font-bold text-neutral-900 dark:text-white mb-1">
+          Don't see your ERP or Commerce platform?
+        </h4>
+        <p class="text-xs md:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+          B1connect is built upon a canonical abstraction layer. Our engineering team regularly builds bespoke adapters for enterprise clients with guaranteed SLAs.
+        </p>
+      </div>
+      <div class="flex-shrink-0">
+        <Button url="/contact?topic=request-connector" type="fill" className="text-sm px-6 py-2.5">
+          Request a Custom Connector <ArrowRight size={16} class="ml-1" />
+        </Button>
+      </div>
+    </div>
+  </section>
 
   <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700 my-4 site-container"></div>
 
   <!-- 10. FAQ -->
   <FAQ
-    title="Pertanyaan yang Sering Diajukan (FAQ)"
+    title="Frequently Asked Questions"
     items={faqItems}
   />
 
   <!-- 11. Latest Articles -->
   <div class="py-16 md:py-24">
-    <BlogSection title="Artikel & Wawasan Integrasi" />
+    <BlogSection title="Integration Insights & Technical Articles" />
   </div>
 
   <!-- 12. Final CTA -->
   <section class="py-14 md:py-20 site-container rounded-3xl bg-gradient-to-b from-bg-secondary to-bg-secondary/70 dark:from-bg-secondary-dark dark:to-bg-secondary-dark/70 border border-primary/15 shadow-sm" data-aos="fade-up-xs" data-aos-once="true">
     <div class="max-w-2xl mx-auto text-center px-4">
       <h2 class="text-3xl md:text-4xl font-brand mb-4 text-neutral-900 dark:text-white" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="200">
-        Siap Mengotomatiskan Integrasi Shopify × SAP B1 Anda?
+        Ready to Automate Your Commerce & ERP Architecture?
       </h2>
       <p class="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed text-base" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="300">
-        Hubungi kami sekarang untuk demonstrasi live, pemetaan kebutuhan sistem, dan konsultasi teknis bersama tim spesialis kami.
+        Contact our engineering team today for a live demo, architecture mapping, and seamless technical onboarding.
       </p>
       <div class="flex flex-wrap justify-center gap-3.5" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="400">
         <Button url="/contact" type="fill" className="text-base px-8 py-3">
-          Konsultasi & Demo Gratis <ArrowRight size={18} class="ml-1" />
+          Book a Technical Demo <ArrowRight size={18} class="ml-1" />
         </Button>
         <Button url="/features" className="text-base px-8 py-3">
-          Lihat Fitur Lengkap
+          Explore All Features
         </Button>
       </div>
     </div>

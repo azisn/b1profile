@@ -11,93 +11,106 @@ import {
 const featureModules = [
   {
     icon: RefreshCw,
-    title: "Sinkronisasi Master Produk & Stok Inventory",
-    desc: "Master Item di SAP Business One otomatis menjadi produk aktif di Shopify. Mutasi stok di multi-warehouse dan perubahan daftar harga di-poll setiap 30 detik secara otomatis tanpa perlu ekspor-impor CSV manual.",
+    title: "Product Master & Inventory Stock Synchronization",
+    desc: "Item Masters in SAP Business One automatically publish as live products on Shopify. Multi-warehouse inventory adjustments and price list changes poll automatically every 30 seconds with zero manual CSV exports.",
     points: [
-      "Background polling otomatis setiap 30 detik",
-      "Mapping field fleksibel: ItemCode → SKU, ItemName → Title, UoM",
-      "Dukungan multi-lokasi gudang (Multi-Warehouse SAP)",
-      "Sinkronisasi otomatis Price List dan mata uang"
+      "Automated background polling every 30 seconds",
+      "Flexible attribute mapping: ItemCode → SKU, ItemName → Title, UoM conversions",
+      "Multi-warehouse routing and inventory location allocation",
+      "Automated Price List and currency synchronization"
     ],
     direction: "left",
     visual: "product-sync",
   },
   {
     icon: ShoppingBag,
-    title: "Sales Order Masuk Otomatis ke Dokumen SAP B1",
-    desc: "Setiap transaksi checkout yang dibayar di Shopify langsung dikonversi menjadi Sales Order (dokumen ORDR / ODLN) di SAP B1 secara instan melalui webhook real-time tanpa jeda waktu.",
+    title: "Automated Sales Order Ingestion into SAP B1",
+    desc: "Every paid checkout on Shopify is converted into a native SAP B1 Sales Order (ORDR/ODLN document) instantly via real-time webhooks without latency.",
     points: [
-      "Webhook real-time untuk event orders/paid & orders/create",
-      "Mapping otomatis: line items, pajak (tax), diskon, dan ongkir",
-      "Pencocokan atau pembuatan Business Partner (BP) otomatis",
-      "Dead-letter queue dan retry otomatis jika koneksi SAP sibuk"
+      "Sub-second webhooks for orders/paid and orders/create events",
+      "Automatic line items, tax brackets, discounts, and shipping cost mapping",
+      "Intelligent Business Partner (BP) reconciliation and customer creation",
+      "Dead-letter queues and automated retries when SAP experiences peak load"
     ],
     direction: "right",
     visual: "order-sync",
   },
   {
     icon: Layers,
-    title: "Multi-Tenant: Satu Engine untuk Banyak Toko",
-    desc: "Arsitektur multi-tenant sejati memungkinkan satu engine instalasi melayani banyak toko Shopify sekaligus. Setiap merchant atau cabang toko memiliki konfigurasi SAP terpisah dengan isolasi data 100%.",
+    title: "Native Multi-Tenancy: One Cluster for Multiple Stores",
+    desc: "A true multi-tenant architecture empowers a single integration cluster to orchestrate multiple Shopify storefronts. Each merchant brand or regional branch maintains isolated configurations with 100% data privacy.",
     points: [
-      "Isolasi database dan memori antar tenant",
-      "Koneksi independen ke instance SAP B1 berbeda",
-      "Skalabel hingga puluhan toko online per engine",
-      "Instalasi instan via Shopify App Store OAuth"
+      "Strict database and in-memory tenant isolation",
+      "Independent connections to separate SAP B1 company databases",
+      "Scales effortlessly to dozens of concurrent storefronts",
+      "Seamless onboarding via standard Shopify App Store OAuth"
     ],
     direction: "left",
     visual: "multi-tenant",
   },
   {
     icon: ShieldCheck,
-    title: "Keamanan Tingkat Tinggi (Enterprise-Grade)",
-    desc: "Seluruh kredensial sensitif seperti Shopify Access Token dan password SAP B1 Service Layer dienkripsi dengan AES-256-GCM. Webhook divalidasi dengan signature HMAC-SHA256 constant-time comparison.",
+    title: "Enterprise-Grade Cryptographic Security",
+    desc: "All sensitive credentials, including Shopify private access tokens and SAP B1 Service Layer passwords, are encrypted using AES-256-GCM. Webhooks are verified using constant-time HMAC-SHA256 comparison.",
     points: [
-      "Enkripsi AES-256-GCM untuk data kredensial saat istirahat (at-rest)",
-      "Validasi signature HMAC-SHA256 untuk setiap webhook Shopify",
-      "Autentikasi sesi berbasis Shopify Session Token (JWT)",
-      "Dukungan self-signed SSL certificate untuk SAP on-premise"
+      "AES-256-GCM encryption for all credentials stored at rest",
+      "Constant-time HMAC-SHA256 signature verification for Shopify webhooks",
+      "Shopify App Bridge JWT session token authentication",
+      "Support for internal and self-signed SSL certificates for on-premise SAP servers"
     ],
     direction: "right",
     visual: "security",
   },
   {
     icon: SlidersHorizontal,
-    title: "Setup Wizard 3 Langkah Tanpa Coding",
-    desc: "Konfigurasi integrasi dengan mudah melalui antarmuka wizard yang intuitif, tertanam langsung di Shopify Admin Anda. Hubungkan koneksi, petakan data field, dan jalankan sinkronisasi.",
+    title: "Guided 3-Step Setup Wizard Without Code",
+    desc: "Configure the entire integration through an intuitive wizard embedded directly inside Shopify Admin. Authenticate your ERP connection, map fields, and launch auto-sync.",
     points: [
-      "Langkah 1: Input URL Service Layer, CompanyDB, dan kredensial",
-      "Langkah 2: Pemetaan field produk, barcode, dan daftar harga",
-      "Langkah 3: Pemetaan akun order dan gudang pengiriman",
-      "Fitur Test Connection built-in untuk verifikasi langsung"
+      "Step 1: Input Service Layer URL, CompanyDB, and authentication credentials",
+      "Step 2: Map SKU fields, barcodes, and master price list catalogs",
+      "Step 3: Map order financial accounts and default shipping warehouses",
+      "Built-in Test Connection tool for immediate connectivity validation"
     ],
     direction: "left",
     visual: "wizard",
   },
   {
     icon: Activity,
-    title: "Dashboard Pemantauan & Hangfire Queue",
-    desc: "Dapatkan visibilitas penuh terhadap setiap operasi background sinkronisasi. Pantau metrik antrean transaksi, status request-response HTTP SAP B1, serta kesehatan service secara live.",
+    title: "Observability Dashboard & Hangfire Queue Telemetry",
+    desc: "Gain complete transparency over every background job. Monitor queue throughput, inspect SAP HTTP response payloads, and track service health in real time.",
     points: [
-      "Status sinkronisasi real-time per merchant/toko",
-      "Log transaksi terperinci dengan payload request & response",
-      "Dashboard Hangfire terintegrasi untuk kontrol worker queue",
-      "Endpoint health-check otomatis (/health) untuk uptime monitoring"
+      "Real-time sync status telemetry per connected storefront",
+      "Granular transaction audit logs with full request & response payloads",
+      "Integrated Hangfire dashboard for queue lifecycle management",
+      "Automated health-check endpoint (/health) for uptime observability"
     ],
     direction: "right",
     visual: "dashboard",
+  },
+  {
+    icon: Cpu,
+    title: "Pluggable Universal Architecture: Built for Any Storefront, Any ERP",
+    desc: "At the core of B1connect lies a Canonical Commerce Data Model. Storefront events and ERP data contracts are decoupled through normalized abstraction contracts, enabling rapid rollout of new connectors (WooCommerce, Magento, NetSuite, Dynamics 365, SAP S/4HANA) without altering core business rules.",
+    points: [
+      "Decoupled Canonical Domain Models for Products, Stock, Orders, and Customers",
+      "Vendor-agnostic Queue Workers powered by .NET 10, Hangfire, and Redis",
+      "Extensible Adapter Pattern ready for REST, SOAP, and OData ERP endpoints",
+      "Strict multi-tenant security isolation across disparate ERP environments"
+    ],
+    direction: "left",
+    visual: "multi-tenant",
   },
 ];
 ---
 
 <Layout
-  title={`Fitur Lengkap — ${siteConfig.title}`}
-  description="Pelajari 6 modul fitur utama B1connect untuk integrasi bi-directional Shopify dan SAP Business One secara otomatis, aman, dan scalable."
+  title={`Complete Features & Pluggable Architecture — ${siteConfig.title}`}
+  description="Explore the core modules of B1connect powering real-time Shopify × SAP B1 synchronization, built on a pluggable universal architecture ready for any ERP."
 >
   <section class="site-container my-12">
     <PageHeader
-      title="Semua yang Anda Butuhkan untuk Integrasi Shopify × SAP B1"
-      description="Fitur terancang khusus untuk menghilangkan input manual, mencegah overselling stok barang, dan menjaga sinkronisasi data transaksi secara real-time."
+      title="Enterprise Integration Modules Built for Scale"
+      description="Production-ready synchronization between Shopify and SAP B1 today, engineered with a pluggable canonical architecture expanding to global ERPs and multi-channel commerce."
     />
   </section>
 
@@ -158,7 +171,7 @@ const featureModules = [
 
                   <div class="p-2.5 rounded-lg bg-bg-primary/50 dark:bg-neutral-800/50 border border-primary/10 flex items-center justify-between">
                     <div>
-                      <div class="text-[10px] text-neutral-400">PriceList #01: IDR 3.499.000</div>
+                      <div class="text-[10px] text-neutral-400">PriceList #01: $249.00</div>
                       <div class="text-xs text-neutral-600 dark:text-neutral-300">Multi-Warehouse (WH-01, WH-02)</div>
                     </div>
                     <div class="flex items-center gap-1.5 text-primary">
@@ -166,7 +179,7 @@ const featureModules = [
                     </div>
                     <div class="text-right">
                       <div class="text-[10px] text-neutral-400">Shopify Variant Price</div>
-                      <div class="text-xs font-semibold text-emerald-600 dark:text-emerald-400">IDR 3.499.000 (Updated)</div>
+                      <div class="text-xs font-semibold text-emerald-600 dark:text-emerald-400">$249.00 (Updated)</div>
                     </div>
                   </div>
                 </div>
@@ -195,7 +208,7 @@ const featureModules = [
                     <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold">PAID</span>
                   </div>
                   <div class="text-[11px] text-neutral-500 dark:text-neutral-400">
-                    Customer: Budi Santoso (BP CardCode: <span class="text-primary font-bold">C00291</span>)
+                    Customer: Alex Reynolds (BP CardCode: <span class="text-primary font-bold">C00291</span>)
                   </div>
                   <div class="h-px bg-dashed border-t border-neutral-200 dark:border-neutral-700 my-1.5"></div>
                   <div class="flex justify-between items-center text-xs">
@@ -288,15 +301,15 @@ const featureModules = [
                 <div class="space-y-2.5 my-auto">
                   <div class="flex items-center gap-3 p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300">
                     <div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-bold">✓</div>
-                    <span class="font-medium text-[11px]">Koneksi SAP Service Layer (200 OK)</span>
+                    <span class="font-medium text-[11px]">SAP Service Layer Connection (200 OK)</span>
                   </div>
                   <div class="flex items-center gap-3 p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300">
                     <div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-bold">✓</div>
-                    <span class="font-medium text-[11px]">Pemetaan Field SKU & Master Price</span>
+                    <span class="font-medium text-[11px]">SKU & Master Price Field Mapping Completed</span>
                   </div>
                   <div class="flex items-center gap-3 p-2 rounded-lg bg-primary/10 border border-primary/30 text-primary">
                     <div class="w-5 h-5 rounded-full bg-primary text-white flex items-center justify-center text-[10px] font-bold">3</div>
-                    <span class="font-bold text-[11px]">Konfigurasi Default Warehouse & Sales Order</span>
+                    <span class="font-bold text-[11px]">Configure Default Warehouse & Sales Order Ledger</span>
                   </div>
                 </div>
 
@@ -351,16 +364,16 @@ const featureModules = [
   <!-- CTA -->
   <section class="py-16 md:py-24 site-container" data-aos="fade-up-xs" data-aos-once="true">
     <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-brand mb-4">Siap Mengintegrasikan Toko Shopify Anda?</h2>
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Ready to Connect Your Shopify Storefront?</h2>
       <p class="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed">
-        Jadwalkan sesi demonstrasi langsung dan lihat bagaimana B1connect menghemat puluhan jam operasional tim Anda setiap minggu.
+        Schedule a live demonstration and discover how B1connect saves your team hundreds of manual operational hours every month.
       </p>
       <div class="flex flex-wrap justify-center gap-3">
         <Button url="/contact" type="fill" className="text-base px-8 py-3">
-          Konsultasi & Demo Gratis <ArrowRight size={18} class="ml-1" />
+          Book a Live Demo <ArrowRight size={18} class="ml-1" />
         </Button>
         <Button url="/pricing" className="text-base px-8 py-3">
-          Lihat Skema Harga
+          View Pricing Plans
         </Button>
       </div>
     </div>

@@ -1,33 +1,33 @@
 ---
-title: "Bagaimana B1connect Menyinkronkan Data Antara Shopify dan SAP B1"
-description: "Ulasan teknis mengenai mekanisme background polling, webhook instant ingestion, dan field mapping di balik engine B1connect."
+title: "Under the Hood: How B1connect Synchronizes Shopify and SAP B1"
+description: "A technical architectural review of background polling workers, webhook ingestion pipelines, and field mapping inside B1connect."
 publishDate: 2026-08-15
 read: 6
-tags: ["Teknis", "Arsitektur", "Sinkronisasi"]
+tags: ["Technical", "Architecture", "Synchronization"]
 img: "/assets/article-cover.jpg"
-img_alt: "Arsitektur Sinkronisasi B1connect"
+img_alt: "B1connect Synchronization Architecture"
 featured: false
 ---
 
-Di balik kemudahan antarmuka B1connect, terdapat arsitektur backend yang dirancang untuk kecepatan, keandalan, dan integritas data transaksi bisnis tingkat tinggi. Artikel ini mengupas bagaimana data mengalir antara Shopify dan SAP Business One secara teknis.
+Behind B1connect's intuitive user interface lies a high-throughput backend architecture engineered for speed, resilience, and strict transactional consistency. This article details how data flows between Shopify and SAP Business One under the hood.
 
-## 1. Alur Sinkronisasi Master Item & Stok (SAP ➔ Shopify)
+## 1. Master Item & Inventory Pipeline (SAP ➔ Shopify)
 
-Data katalog produk dan stok fisik berasal dari SAP Business One sebagai sumber kebenaran (*single source of truth*).
+Product catalog data and physical warehouse stock originate from SAP Business One as the authoritative single source of truth.
 
-- **Interval Polling**: Worker background Hangfire menjalankan query delta ke SAP B1 Service Layer setiap 30 detik.
-- **Deteksi Perubahan**: Sistem membandingkan timestamp `UpdateDate` dan `UpdateTime` pada tabel `OITM` (Item Master) dan `OITW` (Item Warehouse) menggunakan cache Redis, sehingga hanya data yang mengalami perubahan (*delta change*) yang diproses.
-- **Mapping Field**: Field SAP seperti `ItemCode`, `ItemName`, `SalUnitMsr` (UoM), dan barcode dikonversi secara otomatis menjadi format Shopify Product & Variant API.
-- **Multi-Warehouse Routing**: Stok dari beberapa kode gudang SAP dapat digabungkan atau diarahkan ke lokasi fulfillment Shopify yang sesuai.
+- **Intelligent Polling**: Background Hangfire workers query the SAP B1 Service Layer every 30 seconds.
+- **Delta Change Detection**: The engine inspects `UpdateDate` and `UpdateTime` timestamps on `OITM` (Item Master) and `OITW` (Item Warehouse) tables against Redis caches, ensuring only mutated records are processed.
+- **Attribute Mapping**: SAP attributes (`ItemCode`, `ItemName`, `SalUnitMsr`, and barcodes) are mapped automatically into Shopify Product and Variant schema definitions.
+- **Multi-Warehouse Routing**: Quantities from designated SAP warehouse codes are aggregated or mapped directly into specific Shopify fulfillment locations.
 
-## 2. Alur Transaksi Sales Order (Shopify ➔ SAP B1)
+## 2. Sales Order Ingestion Pipeline (Shopify ➔ SAP B1)
 
-Ketika pelanggan menyelesaikan transaksi checkout di toko Shopify:
+When a customer completes a checkout order on Shopify:
 
-- **Webhook Event**: Shopify mengirim payload webhook instan untuk event `orders/paid` ke endpoint aman B1connect.
-- **Validasi Kriptografis**: B1connect memvalidasi header `X-Shopify-Hmac-Sha256` dengan membandingkan hash secret menggunakan perbandingan waktu konstan (*constant-time comparison*) untuk menangkal serangan *timing attack*.
-- **Pencocokan Business Partner (BP)**: Sistem mencari pelanggan di SAP berdasarkan email atau ID Shopify. Jika belum terdaftar, sistem dapat membuat data Business Partner baru di tabel `OCRD` secara otomatis.
-- **Penerbitan Dokumen ORDR**: Dokumen Sales Order diterbitkan melalui Service Layer API lengkap dengan line items, harga, pajak, dan ongkos kirim.
-- **Dead-Letter Queue**: Bila koneksi SAP sedang sibuk atau offline, antrean Hangfire akan mencoba ulang secara berkala (*exponential backoff retry*) tanpa kehilangan data pesanan.
+- **Webhook Event**: Shopify issues an instant `orders/paid` webhook payload to B1connect's secure ingestion endpoint.
+- **Cryptographic Verification**: B1connect calculates HMAC signatures using the application's shared secret and executes a constant-time comparison against `X-Shopify-Hmac-Sha256` to prevent timing attacks.
+- **Business Partner Reconciliation**: The engine matches the customer against SAP Business Partners (`OCRD`) by email or unique ID, automatically generating new accounts when needed.
+- **Document Generation**: An official Sales Order (`ORDR`) document is created via the Service Layer complete with line items, tax rates, discounts, and shipping lines.
+- **Dead-Letter Queue Resilience**: If the SAP server is temporarily under maintenance, Hangfire places the payload into an exponential-backoff queue, ensuring zero lost transactions.
 
-Arsitektur ini memastikan operasional toko online Anda berjalan tanpa hambatan dan bebas dari salah input data manual.
+This architecture ensures your commerce infrastructure operates without interruption or manual friction.

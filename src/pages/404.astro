@@ -5,7 +5,7 @@ import { ArrowLeft, Compass, House, Mail, Search, ShieldAlert } from "@lucide/as
 import { siteConfig } from "@/config/site";
 ---
 
-<PageLayout title={`Halaman Tidak Ditemukan — ${siteConfig.title}`} description="Halaman yang Anda tuju tidak ditemukan atau telah berpindah.">
+<PageLayout title={`Page Not Found — ${siteConfig.title}`} description="The page you are looking for does not exist or has been moved.">
   <section class="site-container py-14 md:py-24">
     <div class="grid min-h-[62vh] items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(420px,1fr)]">
       <div data-aos="fade-up-xs" data-aos-once="true">
@@ -15,19 +15,19 @@ import { siteConfig } from "@/config/site";
         </p>
 
         <h1 class="max-w-2xl font-brand text-5xl leading-[1.04] tracking-normal text-neutral-800 dark:text-neutral-100 md:text-6xl">
-          Halaman Tidak Ditemukan
+          Page Not Found
         </h1>
 
         <p class="mt-5 max-w-xl text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
-          Tautan yang Anda tuju mungkin salah ketik, telah dipindahkan, atau tidak lagi tersedia. Silakan kembali ke beranda atau hubungi tim kami jika Anda memerlukan bantuan.
+          The link you followed may be broken, relocated, or no longer available. Please return to the homepage or reach out to our team if you need assistance.
         </p>
 
         <div class="mt-7 flex flex-wrap gap-3">
           <Button url="/" type="fill">
-            <ArrowLeft size={16} /> Kembali ke Beranda
+            <ArrowLeft size={16} /> Return to Home
           </Button>
-          <Button url={`mailto:${siteConfig.mail}?subject=Laporan%20Tautan%20Rusak%20B1connect`}>
-            <Mail size={16} /> Laporkan Tautan
+          <Button url={`mailto:${siteConfig.mail}?subject=Broken%20Link%20Report%20B1connect`}>
+            <Mail size={16} /> Report Broken Link
           </Button>
         </div>
 

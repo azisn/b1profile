@@ -11,7 +11,7 @@ const entries = allEntries.sort(
 );
 
 function formatDate(date: Date): string {
-  return date.toLocaleDateString("id-ID", {
+  return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -20,13 +20,13 @@ function formatDate(date: Date): string {
 ---
 
 <Layout
-  title={`Catatan Rilis (Changelog) — ${siteConfig.title}`}
-  description="Pantau riwayat pembaruan versi, fitur baru, dan peningkatan performa sistem B1connect."
+  title={`Release Notes (Changelog) — ${siteConfig.title}`}
+  description="Explore release history, newly added capabilities, and performance optimizations in B1connect."
 >
   <section class="site-container my-12">
     <PageHeader
-      title="Catatan Rilis & Riwayat Pembaruan"
-      description="Pembaruan rutin untuk memastikan integrasi Shopify dan SAP Business One Anda selalu optimal, aman, dan stabil."
+      title="Release Notes & Product Updates"
+      description="Regular improvements ensuring your Shopify and SAP Business One integration remains resilient, fast, and secure."
     />
   </section>
 

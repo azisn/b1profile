@@ -1,128 +1,78 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/elements/PageHeader.astro";
-import PricingSection from "@/components/sections/Pricing.astro";
-import AccordionItem from "@/components/ui/AccordionItem.astro";
 import Button from "@/components/ui/Button.astro";
 import { siteConfig } from "@/config/site";
-import { Check, X, ArrowRight } from "@lucide/astro";
+import { ArrowRight, ShieldCheck, Sparkles, Building2, Layers } from "@lucide/astro";
 
-const comparisonFeatures = [
-  { name: "Jumlah Toko Shopify Terhubung", starter: "1 Toko", business: "Hingga 5", enterprise: "Unlimited" },
-  { name: "Instance SAP B1 Service Layer", starter: "1 Instance", business: "1 Instance", enterprise: "Multi-Instance" },
-  { name: "Sinkronisasi Master Produk & Harga", starter: true, business: true, enterprise: true },
-  { name: "Sinkronisasi Stok Inventory", starter: true, business: true, enterprise: true },
-  { name: "Sales Order Masuk Otomatis ke SAP", starter: true, business: true, enterprise: true },
-  { name: "Interval Background Polling", starter: "5 Menit", business: "30 Detik", enterprise: "Custom (<10s)" },
-  { name: "Real-Time Webhook Orders", starter: false, business: true, enterprise: true },
-  { name: "Custom Field & UoM Mapping", starter: "Basic (5 field)", business: "Full Mapping", enterprise: "Full + Custom Logic" },
-  { name: "Multi-Warehouse Inventory Routing", starter: false, business: true, enterprise: true },
-  { name: "Dashboard Monitoring & Audit Logs", starter: true, business: true, enterprise: true },
-  { name: "Opsi On-Premise / Self-Hosted", starter: false, business: false, enterprise: true },
-  { name: "Jaminan SLA Uptime", starter: false, business: false, enterprise: "99.9%" },
-  { name: "Level Layanan Dukungan (Support)", starter: "Email (48 jam)", business: "Prioritas (1 hari)", enterprise: "Dedicated 24/7" },
-  { name: "Sesi Training & Pendampingan Setup", starter: false, business: "1 Sesi", enterprise: "Dedicated Engineer" },
-];
-
-const faqItems = [
+const pillars = [
   {
-    question: "Apakah tersedia masa uji coba gratis (free trial)?",
-    answer: "Ya, kami menyediakan free trial selama 14 hari penuh untuk paket Starter dan Business. Anda dapat menghubungkan toko test/development dan memverifikasi alur sinkronisasi tanpa perlu kartu kredit."
+    icon: Building2,
+    title: "Tailored to Your ERP Architecture",
+    desc: "Every enterprise ERP deployment—whether SAP Business One, SAP S/4HANA, NetSuite, or Dynamics 365—features unique chart of accounts, custom UDFs, and warehouse workflows. We tailor every implementation to your environment."
   },
   {
-    question: "Bagaimana metode pembayaran langganan?",
-    answer: "Pembayaran dapat dilakukan melalui transfer bank lokal atau invoice resmi perusahaan dengan faktur pajak (PPN). Untuk langganan tahunan, Anda mendapatkan potongan harga 20%."
+    icon: Layers,
+    title: "Pluggable Multi-Channel Licensing",
+    desc: "Connect single or multi-tenant storefronts across Shopify and upcoming marketplace connectors with volume-based routing and dedicated throughput tiers."
   },
   {
-    question: "Apakah bisa upgrade atau downgrade paket di kemudian hari?",
-    answer: "Tentu saja. Anda dapat melakukan upgrade paket kapan saja seiring pertumbuhan volume transaksi toko online Anda. Selisih biaya akan dihitung secara prorata dan berlaku instan."
-  },
-  {
-    question: "Bagaimana jika kami memiliki kebutuhan khusus untuk field kustom SAP B1?",
-    answer: "Tim engineer kami sangat berpengalaman menangani custom User-Defined Fields (UDF), UDT, dan alur business logic SAP B1 yang unik melalui paket Enterprise. Hubungi tim sales kami untuk asesmen teknis."
-  },
+    icon: ShieldCheck,
+    title: "Guaranteed SLA & White-Glove Onboarding",
+    desc: "Enterprise deployments include end-to-end sandbox testing, data reconciliation audits, 99.9% uptime SLA commitments, and dedicated engineering support."
+  }
 ];
 ---
 
 <Layout
-  title={`Skema Harga & Paket Integrasi — ${siteConfig.title}`}
-  description="Pilihan paket berlangganan B1connect yang transparan dan fleksibel untuk integrasi Shopify dan SAP Business One."
+  title={`Enterprise Consultation & Access — ${siteConfig.title}`}
+  description="Bespoke integration solutions and custom architecture consultations for enterprise commerce and ERP connectivity."
 >
   <section class="site-container my-12">
     <PageHeader
-      title="Pilihan Paket Investasi yang Fleksibel & Transparan"
-      description="Pilih paket yang paling sesuai dengan volume transaksi dan skala integrasi multi-toko bisnis Anda."
+      title="Bespoke Architecture. Tailored for Your Enterprise."
+      description="We provide custom implementation plans calibrated to your exact ERP infrastructure, transaction throughput, and business rules."
     />
   </section>
 
-  <PricingSection showHeader={false} />
+  <!-- Consultation Banner Card -->
+  <section class="site-container max-w-4xl mx-auto my-8">
+    <div class="relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-b from-bg-secondary to-bg-secondary/60 dark:from-bg-secondary-dark dark:to-bg-secondary-dark/60 p-8 md:p-12 text-center shadow-sm">
+      <div class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary mb-6">
+        <Sparkles size={14} />
+        Consultative & Enterprise Deployments
+      </div>
 
-  <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700 my-8 site-container"></div>
-
-  <!-- Feature Comparison Table -->
-  <section class="site-container py-16 md:py-24" data-aos="fade-up-xs" data-aos-once="true">
-    <h2 class="text-3xl font-brand text-center mb-8">Perbandingan Fitur Paket</h2>
-    <div class="max-w-4xl mx-auto overflow-x-auto">
-      <table class="w-full">
-        <thead>
-          <tr class="border-b border-dashed border-neutral-200 dark:border-neutral-700">
-            <th class="text-left py-4 pr-8 text-sm font-semibold text-neutral-600 dark:text-neutral-400">Fitur & Kapabilitas</th>
-            <th class="text-center py-4 px-4 text-sm font-semibold text-neutral-600 dark:text-neutral-400">Starter</th>
-            <th class="text-center py-4 px-4 text-sm font-bold text-primary">Business</th>
-            <th class="text-center py-4 px-4 text-sm font-semibold text-neutral-600 dark:text-neutral-400">Enterprise</th>
-          </tr>
-        </thead>
-        <tbody>
-          {comparisonFeatures.map((feature) => (
-            <tr class="border-b border-dashed border-neutral-100 dark:border-neutral-800">
-              <td class="py-4 pr-8 text-sm text-neutral-700 dark:text-neutral-300 font-medium">{feature.name}</td>
-              {[feature.starter, feature.business, feature.enterprise].map((val) => (
-                <td class="text-center py-4 px-4">
-                  {typeof val === 'boolean' ? (
-                    val ? (
-                      <Check class="w-4 h-4 text-primary mx-auto" />
-                    ) : (
-                      <X class="w-4 h-4 text-neutral-300 dark:text-neutral-600 mx-auto" />
-                    )
-                  ) : (
-                    <span class="text-sm font-medium text-neutral-600 dark:text-neutral-300">{val}</span>
-                  )}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700 my-8 site-container"></div>
-
-  <!-- Pricing FAQ -->
-  <section class="py-16 md:py-24 site-container">
-    <h2 class="text-3xl font-brand text-center mb-8">Pertanyaan Seputar Harga & Layanan</h2>
-    <div class="max-w-2xl mx-auto" data-aos="fade-up-xs" data-aos-once="true">
-      {faqItems.map((item, index) => (
-        <AccordionItem question={item.question} answer={item.answer} index={index} />
-      ))}
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="py-16 md:py-24 site-container" data-aos="fade-up-xs" data-aos-once="true">
-    <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-brand mb-4">Masih Bingung Memilih Paket yang Tepat?</h2>
-      <p class="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed">
-        Diskusikan arsitektur sistem SAP Business One dan kebutuhan toko online Anda bersama konsultan teknis kami. Kami siap memberikan rekomendasi solusi terbaik.
+      <h2 class="text-3xl md:text-4xl font-brand mb-4 text-neutral-900 dark:text-white">
+        Looking for a Production-Ready or Custom Connector?
+      </h2>
+      <p class="text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto mb-8 leading-relaxed text-base">
+        Whether you are deploying our battle-tested <strong>Shopify × SAP Business One</strong> engine or requesting upcoming connectors for <strong>NetSuite, Dynamics 365, or multi-marketplace ecosystems</strong>, our engineering team works directly with your technical architects to deliver custom proposals.
       </p>
-      <div class="flex flex-wrap justify-center gap-3">
+
+      <div class="flex flex-wrap justify-center gap-4">
         <Button url="/contact" type="fill" className="text-base px-8 py-3">
-          Konsultasi Gratis <ArrowRight size={18} class="ml-1" />
+          Book an Architecture Consultation <ArrowRight size={18} class="ml-1.5" />
         </Button>
-        <Button url="/features" className="text-base px-8 py-3">
-          Pelajari Fitur Lengkap
+        <Button url="/#integrations" className="text-base px-8 py-3">
+          Explore Integrations Roadmap
         </Button>
       </div>
+    </div>
+  </section>
+
+  <!-- Value Pillars -->
+  <section class="site-container max-w-5xl mx-auto py-12 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {pillars.map((pillar) => (
+        <div class="p-6 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 dark:border-neutral-700">
+          <div class="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary mb-4">
+            <pillar.icon class="w-6 h-6" />
+          </div>
+          <h3 class="text-lg font-semibold text-neutral-800 dark:text-neutral-100 mb-2">{pillar.title}</h3>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">{pillar.desc}</p>
+        </div>
+      ))}
     </div>
   </section>
 </Layout>

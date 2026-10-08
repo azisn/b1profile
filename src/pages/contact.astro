@@ -5,57 +5,58 @@ import { siteConfig } from "@/config/site";
 import { ArrowRight, Clock3, LifeBuoy, Mail, MapPin, Phone, Send, Sparkles, ShieldCheck } from "@lucide/astro";
 
 const contactTopics = [
-  { value: "demo", label: "Permintaan Live Demo & Uji Coba (14-Hari Trial)" },
-  { value: "sales", label: "Konsultasi Paket Harga & Lisensi" },
-  { value: "technical", label: "Pertanyaan Teknis / SAP B1 Service Layer" },
-  { value: "partnership", label: "Kemitraan Konsultan ERP / Reseller" },
-  { value: "general", label: "Pertanyaan Umum Lainnya" },
+  { value: "demo", label: "Request a Live Demo (Shopify × SAP B1)" },
+  { value: "request-connector", label: "Request a New Connector (Vote for your ERP or Platform)" },
+  { value: "custom-integration", label: "Bespoke Enterprise Integration Architecture" },
+  { value: "technical", label: "Technical Architecture / API Query" },
+  { value: "partnership", label: "ERP Consultancy or Reseller Partnership" },
+  { value: "general", label: "General Inquiries" },
 ];
 
 const channels = [
   {
     icon: Mail,
-    label: "Email Resmi",
+    label: "Official Email",
     text: siteConfig.mail,
     href: `mailto:${siteConfig.mail}`,
   },
   {
     icon: Phone,
-    label: "Konsultasi / WhatsApp",
+    label: "Direct Consultation / WhatsApp",
     text: "+62 812-8800-9922",
     href: "https://wa.me/6281288009922",
   },
   {
     icon: MapPin,
-    label: "Lokasi Operasional",
-    text: "Jakarta Selatan, DKI Jakarta",
+    label: "Headquarters",
+    text: "Jakarta, Indonesia & Global Remote",
     href: "https://maps.google.com",
   },
 ];
 
 const expectations = [
-  { icon: Clock3, title: "Respon Cepat", desc: "Setiap pesan dan permintaan konsultasi direspons dalam kurun waktu 1 hari kerja." },
-  { icon: LifeBuoy, title: "Sesi Demo Live", desc: "Jadwalkan demo langsung via Google Meet untuk melihat alur sinkronisasi produk dan order." },
-  { icon: ShieldCheck, title: "Kerahasiaan Terjamin", desc: "Kami siap menandatangani NDA untuk menjaga keamanan arsitektur sistem dan data bisnis Anda." },
+  { icon: Clock3, title: "Rapid Response", desc: "All inquiries and demo requests receive a response within 1 business day." },
+  { icon: LifeBuoy, title: "Live Architecture Demo", desc: "Book an interactive session via Google Meet to walk through live product and order flows." },
+  { icon: ShieldCheck, title: "Strict Confidentiality", desc: "We are glad to execute mutual NDAs prior to reviewing your internal ERP architecture." },
 ];
 ---
 
 <Layout
-  title={`Hubungi Kami — ${siteConfig.title}`}
-  description="Konsultasikan kebutuhan integrasi Shopify dan SAP Business One Anda. Tim teknis B1connect siap membantu."
+  title={`Contact & Architecture Consultation — ${siteConfig.title}`}
+  description="Discuss your commerce and ERP integration requirements, request upcoming connectors, or book a live demo."
 >
   <main class="site-container py-12 md:py-20">
     <section class="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(420px,1.1fr)] lg:items-start">
       <div data-aos="fade-up-xs" data-aos-once="true">
         <p class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/5 px-3 py-1 text-xs font-medium text-primary dark:border-primary-light/20 dark:bg-primary-light/10 dark:text-primary-light">
           <Sparkles size={14} />
-          Konsultasi & Kontak
+          Architecture & Consultation
         </p>
         <h1 class="max-w-xl font-brand text-4xl leading-tight tracking-normal text-neutral-800 dark:text-neutral-100 sm:text-5xl lg:text-6xl">
-          Diskusikan Integrasi Bisnis Anda.
+          Let's Architect Your Integration.
         </h1>
         <p class="mt-5 max-w-lg text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
-          Punya pertanyaan seputar arsitektur SAP B1 Service Layer, ingin mencoba live demo, atau butuh solusi kustom untuk toko Shopify Anda? Tim teknis kami siap membantu.
+          Have questions about SAP Service Layer compatibility, want to request an upcoming connector for NetSuite or WooCommerce, or need a bespoke workflow? Our engineering team is ready to assist.
         </p>
 
         <div class="mt-10 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
@@ -101,41 +102,41 @@ const expectations = [
         <div class="rounded-2xl border border-neutral-200 bg-bg-secondary/85 p-5 shadow-[0_18px_60px_rgba(25,34,47,0.08)] backdrop-blur dark:border-neutral-700 dark:bg-bg-secondary-dark/85 dark:shadow-[0_18px_60px_rgba(0,0,0,0.22)] sm:p-8">
           <div class="mb-7 flex flex-col gap-4 border-b border-dashed border-neutral-200 pb-6 dark:border-neutral-700 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <p class="text-xs font-medium uppercase tracking-[0.14em] text-primary dark:text-primary-light">Formulir Permintaan</p>
-              <h2 class="mt-2 font-brand text-3xl sm:text-4xl tracking-normal text-neutral-800 dark:text-neutral-100">Kirim Pesan & Request Demo</h2>
+              <p class="text-xs font-medium uppercase tracking-[0.14em] text-primary dark:text-primary-light">Inquiry Form</p>
+              <h2 class="mt-2 font-brand text-3xl sm:text-4xl tracking-normal text-neutral-800 dark:text-neutral-100">Send a Message & Request a Demo</h2>
               <p class="mt-2 text-sm leading-6 text-neutral-500 dark:text-neutral-400">
-                Isi form di bawah dan tim kami akan segera menghubungi Anda.
+                Fill out the form below and our integration engineers will reach out promptly.
               </p>
             </div>
             <span class="inline-flex w-fit rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-              Respon 24 Jam
+              24h Response SLA
             </span>
           </div>
 
           <form id="contact-form" class="space-y-5">
             <div class="grid gap-5 sm:grid-cols-2">
               <div>
-                <label for="name" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Nama Lengkap</label>
+                <label for="name" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Full Name</label>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   autocomplete="name"
                   required
-                  placeholder="Nama Anda"
+                  placeholder="Jane Doe"
                   class="contact-field"
                 />
               </div>
 
               <div>
-                <label for="email" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Email Perusahaan / Kantor</label>
+                <label for="email" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Work Email</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   autocomplete="email"
                   required
-                  placeholder="nama@perusahaan.com"
+                  placeholder="jane@company.com"
                   class="contact-field"
                 />
               </div>
@@ -143,62 +144,88 @@ const expectations = [
 
             <div class="grid gap-5 sm:grid-cols-2">
               <div>
-                <label for="company" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Nama Perusahaan / Brand</label>
+                <label for="company" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Company / Brand Name</label>
                 <input
                   type="text"
                   id="company"
                   name="company"
-                  placeholder="Contoh: PT Retail Jaya"
+                  placeholder="Acme Retail Corp"
                   class="contact-field"
                 />
               </div>
 
               <div>
-                <label for="phone" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Nomor Telepon / WhatsApp</label>
+                <label for="phone" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Phone / WhatsApp</label>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
-                  placeholder="0812-xxxx-xxxx"
+                  placeholder="+1 (555) 000-0000"
                   class="contact-field"
                 />
               </div>
             </div>
 
             <div>
-              <label for="subject" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Kebutuhan / Topik Konsultasi</label>
+              <label for="subject" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Inquiry Topic</label>
               <select id="subject" name="subject" required class="contact-field">
-                <option value="">Pilih topik kebutuhan</option>
+                <option value="">Select your inquiry topic</option>
                 {contactTopics.map((topic) => (
                   <option value={topic.value}>{topic.label}</option>
                 ))}
               </select>
             </div>
 
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="platform" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Commerce Platform</label>
+                <select id="platform" name="platform" class="contact-field">
+                  <option value="shopify">Shopify (Live)</option>
+                  <option value="woocommerce">WooCommerce (Pipeline)</option>
+                  <option value="magento">Magento / Adobe Commerce</option>
+                  <option value="tiktok">TikTok Shop</option>
+                  <option value="amazon">Amazon Marketplace</option>
+                  <option value="other">Other / Custom API</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="erp" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Target ERP Engine</label>
+                <select id="erp" name="erp" class="contact-field">
+                  <option value="sap-b1">SAP Business One (Live)</option>
+                  <option value="sap-s4hana">SAP S/4HANA (Pipeline)</option>
+                  <option value="netsuite">Oracle NetSuite (Pipeline)</option>
+                  <option value="dynamics-365">Microsoft Dynamics 365</option>
+                  <option value="odoo">Odoo Enterprise</option>
+                  <option value="other">Other ERP System</option>
+                </select>
+              </div>
+            </div>
+
             <div>
-              <label for="message" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Pesan & Detail Kebutuhan</label>
+              <label for="message" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Project Details & Requirements</label>
               <textarea
                 id="message"
                 name="message"
                 required
                 rows="5"
-                placeholder="Ceritakan versi SAP B1 Anda (SQL/HANA), jumlah toko Shopify, atau kebutuhan khusus lainnya..."
+                placeholder="Tell us about your ERP version, storefront platforms, order volume, or any custom connector requirements..."
                 class="contact-field resize-none"
               ></textarea>
             </div>
 
             <div class="rounded-xl border border-dashed border-primary/20 bg-primary/5 p-4 text-xs sm:text-sm leading-6 text-neutral-600 dark:border-primary-light/20 dark:bg-primary-light/10 dark:text-neutral-300">
-              <strong class="font-semibold text-primary dark:text-primary-light">Privasi Terjaga:</strong> Seluruh data kontak yang Anda kirimkan hanya digunakan untuk keperluan konsultasi integrasi B1connect.
+              <strong class="font-semibold text-primary dark:text-primary-light">Privacy Guaranteed:</strong> Your contact information is solely used to facilitate B1connect technical consultations.
             </div>
 
             <div class="form-submit-btn">
               <Button type="fill" className="w-full max-w-none justify-center" url="javascript:void(0);">
-                Kirim Permintaan Konsultasi <Send size={16} class="ml-1" />
+                Submit Inquiry <Send size={16} class="ml-1" />
               </Button>
             </div>
 
             <div id="form-success" class="hidden rounded-xl border border-green-200 bg-green-50 p-4 text-center text-sm font-medium text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-300">
-              Terima kasih! Pesan Anda telah kami terima. Tim teknis B1connect akan menghubungi Anda dalam waktu 1 hari kerja.
+              Thank you! Your message has been received. A B1connect integration specialist will contact you within 1 business day.
             </div>
           </form>
         </div>
@@ -250,6 +277,16 @@ const expectations = [
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const successMsg = document.getElementById('form-success');
   const submitBtn = form?.querySelector('.form-submit-btn a') as HTMLAnchorElement | null;
+
+  // Pre-select topic from URL parameter if present
+  const urlParams = new URLSearchParams(window.location.search);
+  const topicParam = urlParams.get('topic');
+  if (topicParam) {
+    const subjectSelect = document.getElementById('subject') as HTMLSelectElement | null;
+    if (subjectSelect) {
+      subjectSelect.value = topicParam;
+    }
+  }
 
   submitBtn?.addEventListener('click', (event) => {
     event.preventDefault();

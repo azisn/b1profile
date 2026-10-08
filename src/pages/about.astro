@@ -8,40 +8,40 @@ import { ArrowRight, ShieldCheck, Zap, SlidersHorizontal, Users } from "@lucide/
 
 const timeline = [
   {
-    version: "v0.1",
-    date: "Juni 2026",
-    title: "Proof of Concept (PoC)",
-    desc: "Prototipe pertama: sinkronisasi satu arah (one-way sync) Item Master SAP B1 ke satu toko Shopify. Berhasil menghemat 4 jam kerja manual harian.",
-  },
-  {
-    version: "v0.5",
-    date: "Juli 2026",
-    title: "Multi-Tenant & Bi-Directional Engine",
-    desc: "Pengembangan arsitektur multi-tenant, webhook real-time untuk Sales Order Shopify → SAP, enkripsi kredensial AES-256-GCM, dan autentikasi OAuth.",
-  },
-  {
     version: "v1.0",
-    date: "Agustus 2026",
-    title: "Production-Ready Release",
-    desc: "Peluncuran resmi: Live dashboard monitoring, Hangfire background queue, deployment Docker, dukungan multi-warehouse routing, dan audit log lengkap.",
+    date: "August 2026",
+    title: "Production Release: Shopify × SAP B1 (Live)",
+    desc: "Official enterprise launch: sub-second webhooks for orders, 30-second inventory delta sync, AES-256-GCM encryption, and multi-warehouse routing.",
   },
   {
-    version: "Roadmap",
+    version: "v1.5",
     date: "Q4 2026",
-    title: "Ekspansi Ekosistem & Fitur Lanjutan",
-    desc: "Listing publik Shopify App Store, modul Business Partner (BP) Customer Portal tingkat lanjut, dan integrasi Shopify Billing API.",
+    title: "Canonical Schema & Telemetry Mesh",
+    desc: "Architectural decoupling into canonical commerce models, live transaction telemetry streaming, and automated self-healing error diagnostics.",
+  },
+  {
+    version: "v2.0",
+    date: "Q1 2027",
+    title: "Universal ERP Expansion: S/4HANA & NetSuite",
+    desc: "Expanding beyond SAP B1 with dedicated connectors for SAP S/4HANA (OData v4) and Oracle NetSuite (SuiteTalk REST), orchestrated through unified tenant configs.",
+  },
+  {
+    version: "v2.5",
+    date: "Q2 2027",
+    title: "Omnichannel Commerce Mesh: WooCommerce & Marketplaces",
+    desc: "Native connectors for WooCommerce, Adobe Commerce/Magento, and direct marketplace pipelines (Amazon SP-API & TikTok Shop) connected into any supported ERP.",
   },
 ];
 ---
 
 <Layout
-  title={`Tentang Kami — ${siteConfig.title}`}
-  description="Mengenal B1connect: Misi kami menghubungkan ekosistem e-commerce Shopify dengan ERP SAP Business One secara otomatis, aman, dan andal."
+  title={`About Us — ${siteConfig.title}`}
+  description="About B1connect: Building the universal integration mesh between modern commerce platforms and enterprise ERP systems."
 >
   <section class="site-container my-12">
     <PageHeader
-      title="Menghubungkan Dunia E-Commerce & ERP Enterprise"
-      description="B1connect hadir untuk mengeliminasi inefisiensi entri manual, mencegah kesalahan stok barang, dan mempercepat otomatisasi bisnis Anda."
+      title="The Integration Mesh for Modern Commerce & Enterprise ERP"
+      description="B1connect eliminates manual operational friction, unifies fragmented commerce channels, and powers automated data synchronization at global scale."
     />
   </section>
 
@@ -50,16 +50,16 @@ const timeline = [
 
       <!-- Why we built it -->
       <div data-aos="fade-up-xs" data-aos-once="true">
-        <h2 class="text-2xl font-brand text-neutral-800 dark:text-neutral-100 mb-4">Mengapa Kami Membangun B1connect</h2>
+        <h2 class="text-2xl font-brand text-neutral-800 dark:text-neutral-100 mb-4">Our Vision & Architecture</h2>
         <div class="space-y-4 text-neutral-600 dark:text-neutral-300 leading-relaxed">
           <p>
-            Banyak perusahaan retail, distributor, dan brand modern di Indonesia mengandalkan <strong>SAP Business One</strong> sebagai tulang punggung ERP keuangan serta pergudangan mereka, sekaligus memilih <strong>Shopify</strong> sebagai platform penjualan online terbaik.
+            Modern retail enterprises, international distributors, and high-growth consumer brands rely on robust enterprise ERPs as their operational backbone for accounting and warehouse management, while deploying agile storefronts for world-class customer experiences.
           </p>
           <p>
-            Namun kenyataannya, jurang pemisah antara kedua sistem tersebut sering kali masih dijembatani dengan proses manual yang melelahkan: staf admin harus mengetik ulang puluhan invoice order setiap hari, mengunduh dan mengunggah spreadsheet CSV, serta berhadapan dengan komplain pelanggan akibat selisih stok fisik di gudang (overselling).
+            We started with a laser-focused flagship engine: <strong>Shopify × SAP Business One</strong>, solving the acute pain of desynchronized inventories, manual order re-keying, and pricing latency for organizations that demand bulletproof reliability.
           </p>
           <p>
-            Membangun sistem integrasi kustom dari nol memerlukan biaya ratusan juta, waktu berbulan-bulan, serta beban maintenance yang rumit. <strong>B1connect</strong> diciptakan sebagai jawaban: solusi middleware siap pakai berbasis Service Layer resmi SAP B1 yang aman, tangguh, multi-tenant, dan siap berjalan dalam hitungan jam.
+            Building upon this production foundation, our broader mission is to deliver the <strong>Universal Integration Mesh</strong>. By architecting a decoupled canonical commerce abstraction layer, B1connect is expanding into a comprehensive platform where any modern digital sales channel—from Shopify and WooCommerce to global marketplaces—connects seamlessly with any enterprise ERP including SAP S/4HANA, Oracle NetSuite, and Microsoft Dynamics 365.
           </p>
         </div>
       </div>
@@ -68,27 +68,27 @@ const timeline = [
 
       <!-- Values -->
       <div data-aos="fade-up-xs" data-aos-delay="100" data-aos-once="true">
-        <h2 class="text-2xl font-brand text-neutral-800 dark:text-neutral-100 mb-6">Prinsip & Nilai yang Kami Pegang</h2>
+        <h2 class="text-2xl font-brand text-neutral-800 dark:text-neutral-100 mb-6">Our Core Principles</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="p-5 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 dark:border-neutral-700">
             <ShieldCheck class="w-5 h-5 text-primary mb-3" />
-            <h3 class="text-sm font-semibold text-neutral-800 dark:text-neutral-100 mb-1">Keamanan Tanpa Kompromi</h3>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400">Seluruh kredensial SAP dan token Shopify dienkripsi dengan standar militer AES-256-GCM. Isolasi tenant menjamin data bisnis Anda aman.</p>
+            <h3 class="text-sm font-semibold text-neutral-800 dark:text-neutral-100 mb-1">Uncompromising Security</h3>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">All SAP credentials and Shopify tokens are encrypted using AES-256-GCM. Strict tenant isolation ensures zero cross-merchant data leakage.</p>
           </div>
           <div class="p-5 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 dark:border-neutral-700">
             <Zap class="w-5 h-5 text-primary mb-3" />
-            <h3 class="text-sm font-semibold text-neutral-800 dark:text-neutral-100 mb-1">Keandalan Tinggi (High Reliability)</h3>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400">Sistem background worker Hangfire dengan antrean fail-safe dan auto-retry memastikan tidak ada order yang terlewat saat jaringan sibuk.</p>
+            <h3 class="text-sm font-semibold text-neutral-800 dark:text-neutral-100 mb-1">High Availability & Resilience</h3>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">Hangfire-backed worker queues with automated exponential backoff retries guarantee that not a single order is dropped during network surges.</p>
           </div>
           <div class="p-5 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 dark:border-neutral-700">
             <SlidersHorizontal class="w-5 h-5 text-primary mb-3" />
-            <h3 class="text-sm font-semibold text-neutral-800 dark:text-neutral-100 mb-1">Kemudahan Konfigurasi</h3>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400">Setup wizard 3 langkah yang intuitif tertanam langsung di Shopify Admin tanpa perlu coding atau modifikasi core SAP.</p>
+            <h3 class="text-sm font-semibold text-neutral-800 dark:text-neutral-100 mb-1">Intuitive Configuration</h3>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">A 3-step setup wizard embedded directly into Shopify Admin connects your ERP without requiring custom scripts or invasive SAP modifications.</p>
           </div>
           <div class="p-5 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 dark:border-neutral-700">
             <Users class="w-5 h-5 text-primary mb-3" />
-            <h3 class="text-sm font-semibold text-neutral-800 dark:text-neutral-100 mb-1">Dukungan Nyata Ahli ERP</h3>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400">Didukung oleh tim teknis yang memahami arsitektur ERP SAP Business One dan e-commerce untuk membantu bisnis Anda berkembang.</p>
+            <h3 class="text-sm font-semibold text-neutral-800 dark:text-neutral-100 mb-1">Deep ERP Expertise</h3>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">Supported by engineering teams with deep expertise in SAP Business One architecture and high-volume e-commerce scaling.</p>
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@ const timeline = [
 
       <!-- Timeline -->
       <div data-aos="fade-up-xs" data-aos-delay="100" data-aos-once="true">
-        <h2 class="text-2xl font-brand text-neutral-800 dark:text-neutral-100 mb-6">Perjalanan Produk Kami</h2>
+        <h2 class="text-2xl font-brand text-neutral-800 dark:text-neutral-100 mb-6">Our Product Journey</h2>
         <div class="relative">
           <div class="absolute left-3 md:left-4 top-1.5 bottom-1.5 w-px bg-neutral-200 dark:bg-neutral-700"></div>
           <ol class="space-y-8">
@@ -120,18 +120,18 @@ const timeline = [
 
       <!-- Call to Action -->
       <div data-aos="fade-up-xs" data-aos-delay="100" data-aos-once="true">
-        <h2 class="text-2xl font-brand text-neutral-800 dark:text-neutral-100 mb-4">Siap Mengoptimalkan Operasional Bisnis Anda?</h2>
+        <h2 class="text-2xl font-brand text-neutral-800 dark:text-neutral-100 mb-4">Ready to Modernize Your Operations?</h2>
         <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed mb-6">
-          Hubungi kami sekarang untuk mendiskusikan integrasi sistem Anda atau jadwalkan demonstrasi langsung bersama engineer kami.
+          Contact our team today to evaluate your system architecture or schedule a direct demonstration.
         </p>
       </div>
 
       <div class="flex flex-wrap gap-4" data-aos="fade-up-xs" data-aos-delay="200" data-aos-once="true">
         <Button url="/contact" type="fill">
-          Hubungi Kami <ArrowRight size={16} class="ml-1" />
+          Get in Touch <ArrowRight size={16} class="ml-1" />
         </Button>
         <Button url="/changelog">
-          Lihat Catatan Rilis
+          View Changelog
         </Button>
       </div>
     </article>

@@ -1,37 +1,37 @@
 ---
-title: "Standar Keamanan Enterprise: Enkripsi AES-256-GCM dan Validasi HMAC di B1connect"
-description: "Bagaimana B1connect melindungi kredensial database SAP B1 dan token Shopify dengan enkripsi standar industri dan isolasi multi-tenant."
+title: "Enterprise Security Architecture: AES-256-GCM & HMAC Validation"
+description: "How B1connect safeguards SAP B1 database credentials and Shopify access tokens using industry-standard cryptography and multi-tenant isolation."
 publishDate: 2026-09-01
 read: 4
-tags: ["Keamanan", "Enkripsi", "Enterprise"]
+tags: ["Security", "Encryption", "Enterprise"]
 img: "/assets/article-cover.jpg"
-img_alt: "Keamanan Data Enterprise B1connect"
+img_alt: "B1connect Enterprise Data Security"
 featured: false
 ---
 
-Ketika menghubungkan sistem ERP internal perusahaan dengan platform e-commerce berbasis cloud, keamanan data bukan sekadar fitur tambahan — melainkan prasyarat mutlak. Database SAP Business One menyimpan data rahasia perusahaan: data keuangan, daftar harga grosir, margin laba, dan data pelanggan.
+When connecting an enterprise ERP system with cloud commerce platforms, data security is not an optional feature—it is a critical prerequisite. SAP Business One holds an enterprise's most confidential assets: financial ledgers, wholesale pricing tiers, margin data, and customer records.
 
-Di B1connect, kami menerapkan prinsip *Security by Design* dalam setiap lapisan arsitektur kami.
+At B1connect, we apply *Security by Design* across every layer of our architecture.
 
-## 1. Enkripsi Kredensial At-Rest (AES-256-GCM)
+## 1. At-Rest Credential Encryption (AES-256-GCM)
 
-Password login SAP Service Layer dan Access Token privat Shopify tidak pernah disimpan dalam bentuk teks biasa (*plain text*).
+SAP Service Layer credentials and private Shopify Access Tokens are never stored in plain text.
 
-- Kami menggunakan algoritma **AES-256-GCM (Galois/Counter Mode)**, standar enkripsi simetris yang juga digunakan oleh lembaga keuangan dan militer.
-- Mode GCM memberikan keuntungan ganda: **kerahasiaan data (confidentiality)** dan **otentikasi integritas data (authenticity)**, memastikan ciphertext tidak dapat dimanipulasi tanpa terdeteksi.
+- We utilize **AES-256-GCM (Galois/Counter Mode)**, a gold-standard authenticated symmetric cipher trusted by global financial institutions.
+- GCM provides dual guarantees: **confidentiality** and **cryptographic authenticity**, ensuring that ciphertext cannot be altered undetected.
 
-## 2. Validasi Integritas Webhook (HMAC-SHA256)
+## 2. Cryptographic Webhook Validation (HMAC-SHA256)
 
-Setiap notifikasi webhook order yang dikirimkan oleh Shopify harus dipastikan benar-benar berasal dari server resmi Shopify:
+Every order webhook originating from Shopify must be proven authentic before processing:
 
-- B1connect menghitung hash HMAC dari payload mentah menggunakan *Shared Secret* aplikasi.
-- Verifikasi dilakukan menggunakan fungsi perbandingan waktu konstan (*constant-time comparison*) untuk mengeliminasi risiko kerentanan serangan *side-channel timing attack*.
+- B1connect computes an HMAC digest of the raw payload using the app's shared secret.
+- Verification is conducted via a constant-time equality check, eliminating side-channel timing attack vulnerabilities.
 
-## 3. Isolasi Data Multi-Tenant
+## 3. Multi-Tenant Data Isolation
 
-Dalam lingkungan multi-tenant di mana satu engine melayani beberapa toko Shopify:
+In a multi-tenant environment orchestrating multiple merchant storefronts:
 
-- Setiap tenant memiliki konfigurasi, kredensial, dan kunci enkripsi yang terisolasi secara terpisah.
-- Akses data antar tenant dipisahkan di level query database untuk menjamin tidak ada kebocoran data (*data leakage*) antar merchant.
+- Each tenant's configurations, credentials, and encryption keys are strictly partitioned.
+- Database access policies enforce complete query isolation, guaranteeing that zero data leakage occurs between connected storefronts.
 
-Dengan lapisan perlindungan ini, perusahaan Anda dapat memanfaatkan fleksibilitas integrasi modern tanpa mengorbankan kepatuhan standar keamanan data enterprise.
+With these safeguards, your organization can harness the speed of cloud automation while maintaining strict compliance with enterprise security requirements.

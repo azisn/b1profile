@@ -13,11 +13,11 @@ export const siteConfig = {
 		campaign: "navigation",
 	},
 	meta:{
-		title: "B1connect — Integrasi Shopify × SAP Business One",
-		description: "Middleware multi-tenant untuk sinkronisasi otomatis produk, inventory, harga, dan order antara Shopify dan SAP Business One secara real-time.",
-		keywords: "shopify sap integration, sap business one, shopify middleware, erp integration, b1connect, ecommerce erp sync",
+		title: "B1connect — Enterprise Commerce & ERP Integration Mesh",
+		description: "Enterprise multi-tenant middleware delivering real-time bidirectional synchronization between modern digital commerce and core ERP systems. Live with Shopify × SAP B1.",
+		keywords: "shopify sap integration, sap business one, erp middleware, netsuite integration, dynamics 365, sap s4hana, ecommerce erp sync, universal integration mesh",
 		image: `${SITE_URL}/og.jpg`,
-		twitterHandle: "",
+		twitterHandle: "@b1connect",
 	},
 	// social links
 	social:{

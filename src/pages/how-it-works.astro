@@ -11,33 +11,33 @@ import {
 const steps = [
   {
     number: "01",
-    title: "Install & Otorisasi Toko Shopify",
-    desc: "Cukup buka link instalasi aplikasi B1connect. Melalui standar OAuth resmi Shopify, aplikasi terpasang di toko online Anda dalam hitungan detik. Seluruh token akses dienkripsi secara aman.",
+    title: "Install & Authorize Shopify Storefront",
+    desc: "Open the B1connect installation link. Through Shopify's official OAuth flow, the embedded app installs in seconds. All access tokens are securely encrypted.",
     points: [
-      "Instalasi via OAuth Shopify App Bridge",
-      "Kredensial disimpan dengan enkripsi AES-256-GCM",
-      "Tidak ada kode tema (theme Liquid/JSON) yang diubah"
+      "Installed via official Shopify App Bridge OAuth",
+      "Credentials secured with AES-256-GCM encryption",
+      "Zero theme code (Liquid/JSON) modifications required"
     ]
   },
   {
     number: "02",
-    title: "Konfigurasi SAP B1 Service Layer & Field Mapping",
-    desc: "Buka antarmuka Setup Wizard di admin Shopify Anda. Masukkan URL Service Layer SAP B1, CompanyDB, dan akun koneksi. Kemudian petakan SKU, Price List, dan gudang pengiriman.",
+    title: "Configure SAP Service Layer & Field Mappings",
+    desc: "Launch the guided Setup Wizard within your Shopify admin. Enter your SAP B1 Service Layer URL, CompanyDB, and service credentials. Then map your SKUs, price lists, and fulfillment centers.",
     points: [
-      "Koneksi resmi via SAP Service Layer API (HANA / SQL Server)",
-      "Fitur Test Connection langsung untuk verifikasi jaringan",
-      "Mapping field produk, satuan unit (UoM), dan Price List",
-      "Dukungan self-signed SSL untuk server SAP on-premise"
+      "Native connection via official SAP Service Layer REST API (HANA / SQL Server)",
+      "Instant Test Connection feature for real-time network validation",
+      "Granular mapping for items, Units of Measure (UoM), and Price Lists",
+      "Support for self-signed SSL on on-premise SAP deployments"
     ]
   },
   {
     number: "03",
-    title: "Sinkronisasi Otomatis Aktif & Siap Dipantau",
-    desc: "Aktifkan engine sinkronisasi. Produk dan stok dari gudang SAP otomatis tampil di katalog Shopify, sementara pesanan pembeli langsung diterbitkan sebagai dokumen Sales Order di SAP.",
+    title: "Activate Automated Sync & Live Monitoring",
+    desc: "Enable the synchronization engine. Inventory and catalog items from your SAP warehouses appear on Shopify, while store orders automatically generate official Sales Orders in SAP.",
     points: [
-      "Polling otomatis mutasi stok setiap 30 detik",
-      "Webhook instan orders/paid langsung ke dokumen ORDR/ODLN",
-      "Dashboard monitoring & event audit stream real-time"
+      "Automated inventory polling every 30 seconds",
+      "Sub-second orders/paid webhooks generating ORDR/ODLN records",
+      "Real-time monitoring dashboard and telemetry audit stream"
     ]
   }
 ];
@@ -45,44 +45,44 @@ const steps = [
 const dataFlows = [
   {
     direction: "SAP Business One ➔ Shopify",
-    tag: "Katalog & Stok",
-    frequency: "Polling otomatis setiap 30 detik",
+    tag: "Catalog & Inventory",
+    frequency: "Automated polling every 30 seconds",
     items: [
-      { name: "Master Item (OITM)", desc: "ItemCode, ItemName, Deskripsi, Barcode, & Gambar produk" },
-      { name: "Inventory Stok (OITW)", desc: "Kuantitas on-hand multi-warehouse / multi-gudang fisik" },
-      { name: "Daftar Harga (ITM1)", desc: "Price List tier, mata uang Rupiah/Valas, dan diskon" }
+      { name: "Item Master (OITM)", desc: "ItemCode, ItemName, descriptions, barcodes, and product media" },
+      { name: "Inventory Stock (OITW)", desc: "On-hand stock levels across multiple physical warehouse facilities" },
+      { name: "Price Lists (ITM1)", desc: "Tiered price matrices, multi-currency values, and promotional rates" }
     ]
   },
   {
     direction: "Shopify ➔ SAP Business One",
-    tag: "Transaksi & Pelanggan",
-    frequency: "Real-time webhook (Latensi < 0.5 detik)",
+    tag: "Transactions & Customers",
+    frequency: "Real-time webhooks (Latency < 0.5s)",
     items: [
-      { name: "Sales Orders (ORDR)", desc: "Order checkout pelanggan, line item, kuantitas, pajak, & ongkir" },
-      { name: "Customer Master (OCRD)", desc: "Pencocokan atau pendaftaran Business Partner (BP) baru" },
-      { name: "Delivery / Fulfillment", desc: "Status pengiriman dan nomor resi ter-update dua arah" }
+      { name: "Sales Orders (ORDR)", desc: "Customer checkout items, quantities, taxes, discounts, and shipping" },
+      { name: "Customer Master (OCRD)", desc: "Intelligent matching or automated registration of new Business Partners" },
+      { name: "Delivery / Fulfillment", desc: "Fulfillment status and tracking numbers synced bi-directionally" }
     ]
   }
 ];
 
 const techHighlights = [
-  { icon: Cpu, title: ".NET 10 Core", desc: "Backend compiled performa tinggi untuk pemrosesan throughput transaksi masif." },
-  { icon: Server, title: "PostgreSQL", desc: "Database relational yang andal dengan schema multi-tenant terisolasi penuh." },
-  { icon: Zap, title: "Redis Cache", desc: "High-speed in-memory store untuk idempotency token & antrean sinkronisasi." },
-  { icon: RefreshCw, title: "Hangfire Worker", desc: "Background job processor dengan mekanisme dead-letter queue & auto-retry." },
-  { icon: Boxes, title: "Docker Ready", desc: "Kontainerisasi modern untuk kemudahan deployment di VPS lokal maupun Cloud." },
-  { icon: ShieldCheck, title: "AES-256-GCM & HMAC", desc: "Enkripsi data at-rest dan validasi kriptografis untuk setiap webhook." },
+  { icon: Cpu, title: ".NET 10 Core", desc: "High-throughput compiled backend built for massive transactional loads." },
+  { icon: Server, title: "PostgreSQL", desc: "Robust relational database featuring complete multi-tenant schema isolation." },
+  { icon: Zap, title: "Redis Cache", desc: "High-speed in-memory datastore for token idempotency and fast delta diffing." },
+  { icon: RefreshCw, title: "Hangfire Worker", desc: "Background job orchestration with built-in dead-letter queues & auto-retries." },
+  { icon: Boxes, title: "Docker Ready", desc: "Containerized architecture for rapid deployment on private VPS or public cloud." },
+  { icon: ShieldCheck, title: "AES-256-GCM & HMAC", desc: "Military-grade at-rest encryption and cryptographic webhook validation." },
 ];
 ---
 
 <Layout
-  title={`Cara Kerja Integrasi — ${siteConfig.title}`}
-  description="Pelajari bagaimana B1connect menghubungkan Shopify dengan SAP Business One melalui arsitektur middleware yang otomatis, aman, dan tanpa modifikasi core SAP."
+  title={`How B1connect Works — ${siteConfig.title}`}
+  description="Learn how B1connect connects Shopify with SAP Business One through an automated canonical middleware mesh without modifying core ERP systems."
 >
   <section class="site-container my-12">
     <PageHeader
-      title="Bagaimana B1connect Bekerja"
-      description="Dari instalasi pertama hingga sinkronisasi data dua arah otomatis berjalan — dalam 3 langkah mudah tanpa coding rumit."
+      title="How B1connect Works"
+      description="From 3-step setup to automated bidirectional synchronization—built on a universal canonical pipeline connecting storefronts with enterprise ERPs."
     />
   </section>
 
@@ -91,52 +91,52 @@ const techHighlights = [
     <div class="rounded-3xl border border-primary/20 bg-bg-secondary dark:bg-bg-secondary-dark p-6 md:p-10 shadow-sm overflow-hidden">
       <div class="text-center max-w-xl mx-auto mb-8">
         <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-2">
-          Arsitektur Sistem
+          System Architecture
         </span>
-        <h2 class="text-2xl md:text-3xl font-brand">Jembatan Cerdas Antara E-Commerce & ERP</h2>
+        <h2 class="text-2xl md:text-3xl font-brand">The Intelligent Bridge Between Modern E-Commerce & Enterprise ERP</h2>
       </div>
 
       <!-- Diagram Nodes -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-        <!-- Node 1: Shopify -->
+        <!-- Node 1: Storefronts -->
         <div class="p-6 rounded-2xl bg-bg-primary/80 dark:bg-neutral-800/80 border border-primary/15 text-center flex flex-col items-center">
           <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
             <ShoppingBag class="w-7 h-7" />
           </div>
-          <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-100">Shopify Store</h3>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 mb-3">Front-end Etalase & Checkout</p>
+          <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-100">Commerce & Storefronts</h3>
+          <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 mb-3">Shopify (Live) • Multi-Channel (Roadmap)</p>
           <div class="w-full space-y-1.5 text-[11px] font-mono text-neutral-600 dark:text-neutral-300">
-            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Katalog Produk & Variant</div>
-            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Customer Checkout Order</div>
-            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Webhooks: orders/paid</div>
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 text-emerald-600 dark:text-emerald-400 font-semibold">Shopify App Bridge & Storefront (Live)</div>
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">WooCommerce & Marketplaces (In Pipeline)</div>
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Sub-second Webhook Ingestion Pipeline</div>
           </div>
         </div>
 
-        <!-- Node 2: B1connect Engine -->
+        <!-- Node 2: Canonical Integration Mesh -->
         <div class="p-6 rounded-2xl bg-gradient-to-b from-blue-600/10 to-indigo-600/10 border-2 border-primary/30 text-center flex flex-col items-center relative">
           <div class="w-14 h-14 rounded-2xl bg-primary text-white flex items-center justify-center mb-4 shadow-md shadow-primary/30">
             <ArrowLeftRight class="w-7 h-7" />
           </div>
-          <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-100">B1connect Middleware</h3>
-          <p class="text-xs text-primary font-semibold mt-1 mb-3">Multi-Tenant Sync Engine</p>
+          <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-100">B1connect Canonical Mesh</h3>
+          <p class="text-xs text-primary font-semibold mt-1 mb-3">Decoupled Normalization Engine</p>
           <div class="w-full space-y-1.5 text-[11px] font-mono text-neutral-700 dark:text-neutral-200">
-            <div class="p-1.5 rounded bg-bg-primary/90 dark:bg-neutral-800/90 border border-primary/20">AES-256-GCM Secret Store</div>
-            <div class="p-1.5 rounded bg-bg-primary/90 dark:bg-neutral-800/90 border border-primary/20">Data Normalizer & Field Mapper</div>
-            <div class="p-1.5 rounded bg-bg-primary/90 dark:bg-neutral-800/90 border border-primary/20">Hangfire Queue & Auto-Retry</div>
+            <div class="p-1.5 rounded bg-bg-primary/90 dark:bg-neutral-800/90 border border-primary/20">Canonical Commerce Schema Normalizer</div>
+            <div class="p-1.5 rounded bg-bg-primary/90 dark:bg-neutral-800/90 border border-primary/20">AES-256-GCM Secret Vault</div>
+            <div class="p-1.5 rounded bg-bg-primary/90 dark:bg-neutral-800/90 border border-primary/20">.NET 10 + Hangfire Queue Resilience</div>
           </div>
         </div>
 
-        <!-- Node 3: SAP Business One -->
+        <!-- Node 3: Enterprise ERPs -->
         <div class="p-6 rounded-2xl bg-bg-primary/80 dark:bg-neutral-800/80 border border-primary/15 text-center flex flex-col items-center">
           <div class="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
             <Database class="w-7 h-7" />
           </div>
-          <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-100">SAP Business One</h3>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 mb-3">ERP Enterprise & Warehouse</p>
+          <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-100">Enterprise ERP Systems</h3>
+          <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 mb-3">SAP B1 (Live) • S/4HANA & NetSuite (Roadmap)</p>
           <div class="w-full space-y-1.5 text-[11px] font-mono text-neutral-600 dark:text-neutral-300">
-            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Service Layer REST API</div>
-            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Master Item & Multi-Warehouse</div>
-            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Sales Order (ORDR / ODLN)</div>
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 text-blue-600 dark:text-blue-400 font-semibold">SAP B1 Service Layer REST (HANA/SQL Live)</div>
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">SAP S/4HANA & NetSuite (In Pipeline)</div>
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Dynamics 365 & Odoo Adapters (Roadmap)</div>
           </div>
         </div>
       </div>
@@ -146,9 +146,9 @@ const techHighlights = [
   <!-- Section 2: 3 Simple Steps -->
   <section class="site-container py-16 md:py-24">
     <div class="text-center max-w-2xl mx-auto mb-14" data-aos="fade-up-xs" data-aos-once="true">
-      <h2 class="text-3xl md:text-4xl font-brand mb-4">Mulai Berjalan Hanya Dalam 3 Langkah</h2>
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Up and Running in 3 Simple Steps</h2>
       <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
-        Proses setup dirancang tanpa membebani tim IT Anda. Cepat, aman, dan terverifikasi secara instan.
+        The onboarding process is engineered without technical complexity. Fast, secure, and validated immediately.
       </p>
     </div>
 
@@ -181,9 +181,9 @@ const techHighlights = [
   <!-- Section 3: Detailed Data Flow -->
   <section class="site-container py-16 md:py-24" data-aos="fade-up-xs" data-aos-once="true">
     <div class="text-center max-w-2xl mx-auto mb-12">
-      <h2 class="text-3xl md:text-4xl font-brand mb-4">Rincian Alur Sinkronisasi Data</h2>
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Detailed Data Flow Pipelines</h2>
       <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
-        Kedua arah sinkronisasi bekerja independen untuk memastikan integritas data katalog dan dokumen keuangan.
+        Both synchronization pipelines operate independently to preserve product catalog integrity and financial ledger accuracy.
       </p>
     </div>
 
@@ -214,9 +214,9 @@ const techHighlights = [
   <!-- Section 4: Architecture & Security Highlights -->
   <section class="site-container py-16 md:py-24" data-aos="fade-up-xs" data-aos-once="true">
     <div class="text-center max-w-2xl mx-auto mb-12">
-      <h2 class="text-3xl md:text-4xl font-brand mb-4">Fondasi Teknis Standar Enterprise</h2>
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Enterprise-Grade Technical Foundation</h2>
       <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
-        Dibangun dengan standar keamanan finansial dan keandalan sistem cloud-native modern.
+        Built to satisfy demanding financial-grade security standards and cloud-native resilience requirements.
       </p>
     </div>
 
@@ -236,16 +236,16 @@ const techHighlights = [
   <!-- Section 5: Bottom CTA -->
   <section class="py-16 md:py-24 site-container" data-aos="fade-up-xs" data-aos-once="true">
     <div class="max-w-2xl mx-auto text-center rounded-3xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/15 p-8 md:p-14">
-      <h2 class="text-3xl md:text-4xl font-brand mb-4">Siap Mengintegrasikan Sistem Anda?</h2>
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Ready to Connect Your Systems?</h2>
       <p class="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed">
-        Jadwalkan sesi demonstrasi langsung dan konsultasi implementasi bersama tim engineer B1connect.
+        Book a live demonstration and implementation consultation with our senior integration engineers.
       </p>
       <div class="flex flex-wrap justify-center gap-3">
         <Button url="/contact" type="fill" className="text-base px-8 py-3">
-          Jadwalkan Demo Gratis <ArrowRight size={18} class="ml-1" />
+          Schedule a Free Demo <ArrowRight size={18} class="ml-1" />
         </Button>
         <Button url="/pricing" className="text-base px-8 py-3">
-          Lihat Skema Harga
+          View Pricing Plans
         </Button>
       </div>
     </div>

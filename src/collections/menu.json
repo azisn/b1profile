@@ -8,8 +8,12 @@
 		"url": "/features"
 	},
 	{
-		"name": "Pricing",
-		"url": "/pricing"
+		"name": "How It Works",
+		"url": "/how-it-works"
+	},
+	{
+		"name": "Integrations",
+		"url": "/#integrations"
 	},
 	{
 		"name": "Resources",
