@@ -1,29 +1,23 @@
 {
-	"name": "ricoui-saas-template",
+	"name": "b1connect-company-profile",
 	"type": "module",
 	"version": "1.0.0",
 	"packageManager": "pnpm@9.14.2",
-	"description": "A design-led SaaS website template built with Astro, Tailwind CSS v4, MDX, and a reusable component system.",
+	"description": "Website company profile resmi untuk B1connect — Middleware integrasi Shopify × SAP Business One.",
 	"keywords": [
+		"shopify",
+		"sap-business-one",
+		"sap-b1",
+		"middleware",
+		"ecommerce-integration",
 		"astro",
-		"astro-template",
-		"saas",
-		"saas-template",
-		"landing-page",
-		"startup",
 		"tailwindcss",
-		"tailwindcss-v4",
-		"mdx",
-		"blog",
-		"changelog",
-		"dark-mode",
-		"responsive",
-		"typescript"
+		"company-profile"
 	],
 	"author": {
-		"name": "RicoUI",
-		"email": "hello@ricoui.com",
-		"url": "https://ricoui.com"
+		"name": "B1connect",
+		"email": "support@b1connect.id",
+		"url": "https://b1connect.id"
 	},
 	"repository": {
 		"type": "git",

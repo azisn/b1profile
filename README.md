@@ -1,246 +1,184 @@
-# RicoFast — A design-led SaaS template for Astro
+# B1connect — Website Company Profile
 
-> [中文文档](README-zh.md) | English
+> **B1connect** adalah middleware integrasi enterprise tingkat lanjut yang menghubungkan toko e-commerce **Shopify** dengan ERP **SAP Business One** secara otomatis, aman, dan real-time.
 
-An open-source SaaS website template built with Astro 6 and Tailwind CSS v4. Designed for indie hackers, AI/dev-tool teams, and OSS maintainers who want a polished, design-forward product site.
-
-![preview](/docs/screenshot.jpeg)
-
-![Chinese version preview](/docs/ricoui-saas-zh.jpeg)
+![B1connect Preview](/og.jpg)
 
 ![Astro](https://img.shields.io/badge/Astro-6.4.2-FF5D01?logo=astro&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-7.3.3-646CFF?logo=vite&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1.14-38B2AC?logo=tailwind-css&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7.3.3-646CFF?logo=vite&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
-**Links:** [Live Demo](https://ricofast.pages.dev/) · [GitHub](https://github.com/ricocc/ricoui-saas-template) · [Changelog](https://ricofast.pages.dev/changelog) · [Design Reference](https://ricofast.pages.dev/elements)
+---
 
-**Chinese Version:** branch `template-zh` · [Preview](https://ricoui-saas-zh.netlify.app/)
+## 🚀 Mengenai Produk B1connect
+
+B1connect menyelesaikan tantangan integrasi klasik antara platform penjualan online Shopify dan sistem ERP SAP Business One:
+- ❌ **Sebelumnya:** Staf gudang dan operasional harus input ratusan order penjualan secara manual setiap hari, rentan typo, serta risiko *overselling* akibat stok tidak sinkron.
+- ✅ **Dengan B1connect:** Sinkronisasi inventori, daftar harga, dan katalog produk berjalan otomatis dari SAP ke Shopify, sementara pesanan yang dibayar langsung diterbitkan menjadi Sales Order resmi di SAP Business One dalam hitungan detik.
+
+### Fitur Utama Produk
+1. **Bi-Directional Sync:**
+   - **SAP → Shopify:** Master item, varian, multi-warehouse stock level, dan price list.
+   - **Shopify → SAP:** Sales orders, customer / Business Partner matching, status fulfillment.
+2. **Arsitektur Multi-Tenant:**
+   - Satu middleware instance dapat melayani banyak toko Shopify sekaligus dengan konfigurasi terisolasi per tenant.
+3. **Enterprise Security:**
+   - Enkripsi kredensial database & API token dengan algoritma **AES-256-GCM**.
+   - Validasi HMAC-SHA256 untuk webhook Shopify dan verifikasi session token.
+4. **Resilient Background Processing:**
+   - Menggunakan Hangfire dengan antrean job independen, retry otomatis, dan dead-letter queue.
+5. **Dashboard & Monitoring:**
+   - Visual event stream, HTTP telemetry audit log, dan health check `/health`.
 
 ---
 
-## Why RicoFast
+## 🌐 Halaman & Navigasi Web Company Profile
 
-Most open-source SaaS templates fall into two camps: bare starters that leave you rebuilding everything, or maximalist bundles that prioritize feature coverage over design quality. RicoFast focuses on design and visual polish — a documented design system that AI tools can accurately interpret, helping you produce pages with great visual and design quality.
+Website ini dibangun menggunakan stack ultra-cepat **Astro 6 + Tailwind CSS v4** dengan dark mode bawaan, layout responsif, dan performa Lighthouse 95+:
 
-## Features
+| Halaman | Rute | Deskripsi |
+|---------|------|-----------|
+| **Home** | `/` | Hero interaktif, ekosistem ERP, 3 problem statement, 5 pipeline data, 6 fitur unggulan, preview dashboard real-time, skema harga, FAQ, & CTA. |
+| **Features** | `/features` | 6 modul detail fitur produk dengan alternating mockups (katalog, webhook, multi-tenant, sekuriti, wizard, monitoring). |
+| **How It Works** | `/how-it-works` | Diagram arsitektur visual Shopify ↔ B1connect ↔ SAP, panduan setup 3 langkah, spesifikasi alur data, dan ringkasan tech stack. |
+| **Pricing** | `/pricing` | Paket Starter (Rp 1,5 Jt), Business (Rp 3,5 Jt), Enterprise (Custom), tabel komparasi 14 fitur, dan pricing FAQ. |
+| **About** | `/about` | Kisah pendirian B1connect, nilai-nilai perusahaan, dan timeline rilis (v0.1 POC hingga Roadmap Q4). |
+| **Contact** | `/contact` | Formulir konsultasi & demo, kontak WhatsApp, email resmi, alamat kantor, dan FAQ konsultasi. |
+| **Blog** | `/blog` | Artikel wawasan teknis, tutorial integrasi Shopify × SAP, dan best practice keamanan data. |
+| **Changelog** | `/changelog` | Catatan rilis versi produk (v1.0.0, v1.1.0, v1.2.0) dengan badge versioning. |
+| **404 Not Found** | `/404` | Halaman error 404 ramah pengguna dengan tombol navigasi cepat. |
+| **RSS Feed** | `/rss.xml` | Sindikasi konten blog otomatis untuk agregator dan pembaca RSS. |
 
-- **11 production-ready pages** — Home (12 sections), Features, Pricing, Blog, Changelog, About, Contact, Sign in, Sign up, Elements, 404
-- **15+ reusable section components** — Hero, FeatureGrid, FeatureDetail, Pricing cards, Comparison table, FAQ, Steps, Tech stack, Use cases, FinalCTA, and more
-- **Auth page templates** — Sign in & Sign up in two layout variants (split-screen and centered card), ready to wire up your auth provider
-- **MDX-powered Blog & Changelog** — Astro 6 Content Layer API with `astro/loaders`
-- **Built-in dark mode** — class-based, no flash on load, contrast-audited
-- **Token-driven design system** — ~30 CSS custom properties, all documented in `docs/DESIGN.md`
-- **Mobile-first responsive** — tested at 375 / 768 / 1024 / 1440
-- **Subtle motion** — AOS scroll reveals + motion.js orchestration, respects `prefers-reduced-motion`
-- **Lighthouse 95+** — Performance, Accessibility, Best Practices, SEO out of the box
-- **SEO-ready** — Open Graph, Twitter cards, sitemap, RSS feed
-- **TypeScript** — Astro check runs on every build
-- **MIT-licensed** — Use for personal and commercial projects, no attribution required
+---
 
-## Tech stack
+## 🛠️ Tech Stack Web Company Profile
 
-- **Framework:** [Astro 6.4.2](https://astro.build) (Content Layer API)
-- **Build tooling:** [Vite 7.3](https://vite.dev/)
-- **Styling:** [Tailwind CSS v4.1](https://tailwindcss.com) (`@theme` tokens)
-- **Content:** MDX via `@astrojs/mdx`
-- **Animation:** [AOS](https://michalsnik.github.io/aos/) + [motion.js](https://motion.dev/)
-- **Icons:** [Lucide](https://lucide.dev/) via `@lucide/astro`
-- **Type checking:** TypeScript + `astro check`
-- **Linter:** [Biome](https://biomejs.dev/)
+- **Framework:** [Astro 6.4.2](https://astro.build) (Static Site Generation / Content Layer)
+- **Styling:** [Tailwind CSS v4.1](https://tailwindcss.com) dengan design tokens di `src/styles/global.css`
+- **Animasi & Interaktivitas:** [AOS](https://michalsnik.github.io/aos/) (Scroll reveals) + [motion.js](https://motion.dev/)
+- **Icons:** [Lucide Icons](https://lucide.dev/) (`@lucide/astro`)
+- **Konten:** MDX (`@astrojs/mdx`) untuk Blog dan Changelog
+- **SEO & Feed:** `@astrojs/sitemap`, `@astrojs/rss`, Open Graph, dan Twitter Cards
+- **Type Checking:** TypeScript + `astro check`
 
-## Requirements
+---
 
-- Node.js `>=22.12.0`
-- pnpm `>=9` (this repo uses `pnpm-lock.yaml` as the source of truth)
+## 💻 Panduan Menjalankan di Lokal (Local Development)
 
-## Quick start
+### Kebutuhan Sistem
+- **Node.js:** `>=22.12.0`
+- **pnpm:** `>=9.0.0`
 
+### 1. Masuk ke Direktori Project
 ```bash
-# 1. Clone the repo
-git clone https://github.com/ricocc/ricoui-saas-template.git my-saas
-cd my-saas
+cd ricoui-saas-template
+```
 
-# 2. Install dependencies
+### 2. Install Dependensi (jika belum)
+```bash
 pnpm install
+```
 
-# 3. Start dev server (http://localhost:5200)
+### 3. Konfigurasi Environment (`.env`)
+Pastikan file `.env` sudah terbuat di root direktori:
+```env
+PUBLIC_SITE_URL=https://b1connect.id
+```
+
+### 4. Jalankan Dev Server
+```bash
 pnpm dev
 ```
+Buka browser di `http://localhost:5200` (atau port yang ditampilkan di terminal).
 
-### Environment variables
-
-Copy `.env.example` to `.env` and set your domain:
-
-```env
-PUBLIC_SITE_URL=https://your-domain.com
-PUBLIC_GA4_ID=your-google-analytics-id  # optional
-PUBLIC_UMAMI_ID=your-umami-id            # optional
-```
-
-If `PUBLIC_SITE_URL` is unset, the build falls back to a default — set the real domain before deploying so sitemap, RSS, and canonical URLs work.
-
-## Project structure
-
-```
-├── docs/
-│   └── DESIGN.md           # Design tokens, type scale, spacing — read first
-├── public/
-│   ├── assets/             # Images, og.jpg, etc.
-│   ├── favicon.png
-│   └── robots.txt
-├── src/
-│   ├── pages/              # Routes — index, features, pricing, blog/, etc.
-│   ├── layouts/            # Layout.astro (root), PageLayout, PostLayout, Meta
-│   ├── components/
-│   │   ├── home/           # HeroSection
-│   │   ├── sections/       # Header, Footer, FAQ, BlogSection
-│   │   ├── cards/          # BlogCard
-│   │   ├── elements/       # SectionHeader, PageHeader, SeparatorLine
-│   │   ├── ui/             # Button, Badge, AccordionItem, PricingToggle, BrowserFrame, Logo
-│   │   └── widgets/        # Toc, Pagination, ToTop, Meta, OptimizedImage, TrackGa
-│   ├── collections/        # menu.json, social.json
-│   ├── content/
-│   │   ├── post/           # Blog MDX entries
-│   │   └── changelog/      # Changelog MDX entries
-│   ├── config/site.js      # Site-wide config — edit this first
-│   ├── styles/global.css   # Design tokens via Tailwind v4 @theme
-│   └── content.config.js   # Content Layer schemas
-├── CLAUDE.md               # Context for AI coding assistants
-├── astro.config.mjs
-└── package.json
-```
-
-## Pages
-
-| Route | Purpose | Where to edit |
-|-------|---------|---------------|
-| `/` | Marketing home with 12 sections | `src/pages/index.astro` |
-| `/features` | 6 feature detail modules | `src/pages/features.astro` |
-| `/pricing` | 3-tier plans + comparison + FAQ | `src/pages/pricing.astro` |
-| `/blog` | MDX-powered articles list | `src/content/post/` |
-| `/changelog` | Versioned release notes | `src/content/changelog/` |
-| `/about` | Story + values + timeline | `src/pages/about.astro` |
-| `/contact` | Demo contact form | `src/pages/contact.astro` |
-| `/sign-in` | Sign in — split-screen layout | `src/pages/sign-in.astro` |
-| `/sign-up` | Sign up — split-screen layout | `src/pages/sign-up.astro` |
-| `/elements` | Internal design reference | `src/pages/elements.astro` |
-| `/404` | Not-found page | `src/pages/404.astro` |
-
-Auth pages also include centered-card variants at `/signin` and `/signup`.
-
-## Customization
-
-The first 90% of customization happens in three places. There's a full walkthrough at [/blog/customize-your-saas-site](https://ricofast.pages.dev/blog/customize-your-saas-site).
-
-### 1. Brand identity — `src/config/site.js`
-
-```js
-export const siteConfig = {
-  title: "Your SaaS",
-  author: "Your Team",
-  url: "https://your-domain.com",
-  mail: "hello@your-domain.com",
-  meta: {
-    title: "Your SaaS — One-line value proposition",
-    description: "What your product does, clearly.",
-    keywords: "your, target, keywords",
-    image: "/og.jpg",
-  },
-  social: {
-    twitter: "https://x.com/your-handle",
-    github: "https://github.com/your-org/your-repo",
-  },
-};
-```
-
-### 2. Design tokens — `src/styles/global.css`
-
-```css
-@theme {
-  --color-primary: #2d6dc3;          /* your brand color */
-  --color-primary-strong: #0066ff;   /* hover/emphasis */
-  --color-accent: #fad13b;            /* badges, highlights */
-  --color-bg-primary: #fdfaf5;        /* page canvas */
-  --font-brand: "Instrument Serif", serif;
-  --font-sans: "Inter", sans-serif;
-}
-```
-
-Full token table in [`docs/DESIGN.md`](docs/DESIGN.md).
-
-### 3. Content — `src/content/`
-
-Blog and changelog frontmatter schemas live in `src/content.config.js`. Drop new MDX files in `src/content/post/<slug>/index.mdx` — the build picks them up automatically.
-
-## Commands
-
+### 5. Validasi Tipe & Build Produksi
 ```bash
-pnpm dev           # dev server on http://localhost:5200
-pnpm build         # astro check && astro build → dist/
-pnpm preview       # preview the production build
-pnpm check         # biome lint + format
+# Validasi TypeScript dan diagnostik Astro
+pnpm astro check
+
+# Build static bundle ke folder dist/
+pnpm build
+
+# Preview hasil build lokal
+pnpm preview
 ```
 
-## Deploy
+---
 
-The build is static. Any static host works:
+## 📁 Struktur Direktori Penting
 
-| Platform | Build command | Output |
-|----------|---------------|--------|
-| Cloudflare Pages | `pnpm build` | `dist/` |
-| Vercel | `pnpm build` | `dist/` |
-| Netlify | `pnpm build` | `dist` |
-| GitHub Pages | `pnpm build` + Pages action | `dist` |
-
-## Documentation
-
-- [`docs/DESIGN.md`](docs/DESIGN.md) — Design tokens, type scale, spacing, motion specs
-- [`docs/plan/`](docs/plan/) — Per-page detailed specs
-- [`CLAUDE.md`](CLAUDE.md) — Working context for AI coding assistants
-
-## Contributing
-
-Contributions are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for guidelines on bug reports, feature requests, and pull requests.
-
-## License
-
-[MIT](LICENSE) — fork it, ship with it, sell what you build on top of it. No attribution required.
-
-## Other templates
-
-- **Blog Template** — open source: [https://github.com/ricocc/public-portfolio-site](https://github.com/ricocc/public-portfolio-site)
-
-- **Portfolio Template** — open source: [https://github.com/ricocc/ricoui-portfolio](https://github.com/ricocc/ricoui-portfolio)
+```
+ricoui-saas-template/
+├── public/                     # Aset statis (og.jpg, favicon.svg, robots.txt)
+├── src/
+│   ├── collections/            # Data navigasi menu (menu.json) & media sosial
+│   ├── components/
+│   │   ├── cards/              # Kartu UI (TechStack, dsb.)
+│   │   ├── elements/           # Elemen UI reusable (SectionHeader, Badge, Accordion)
+│   │   ├── home/               # Komponen spesifik beranda (HeroSection.astro)
+│   │   ├── sections/           # Section global (Header, Footer, Pricing, FAQ, BlogSection)
+│   │   └── ui/                 # Komponen dasar (Logo.astro, Button.astro, BrowserFrame.astro)
+│   ├── config/
+│   │   └── site.js             # Konfigurasi nama brand, URL, kontak, dan meta tags
+│   ├── content/                # Konten berbasis file
+│   │   ├── changelog/          # File MDX rilis (v1.0.0, v1.1.0, v1.2.0)
+│   │   └── post/               # Artikel MDX blog dengan subfolder
+│   ├── layouts/                # Layout halaman (Layout.astro, Meta.astro, PostLayout.astro)
+│   ├── pages/                  # Rute halaman Astro (index, features, pricing, dll.)
+│   └── styles/                 # global.css (Tailwind v4 tokens) & styling artikel
+└── dist/                       # Output build produksi (statis HTML/CSS/JS)
+```
 
 ---
 
-## About the author
+## 📝 Mengelola Konten
 
-I'm Rico, a web/UI designer passionate about creating interesting and creative work. With UI/UX design experience, currently focused on web design, visual implementation, and development projects.
+### Menambah Artikel Blog Baru
+1. Buat folder baru di `src/content/post/[slug-artikel]/`
+2. Buat file `index.mdx` dengan frontmatter:
+```mdx
+---
+title: "Judul Artikel Anda"
+description: "Ringkasan artikel dalam 1-2 kalimat untuk meta description."
+publishDate: 2026-10-10
+tags: ["shopify", "sap-b1", "tutorial"]
+read: 5
+img: "/assets/blog/cover.jpg"
+img_alt: "Deskripsi gambar"
+featured: false
+---
 
-Feel free to add my WeChat and connect:
+Konten artikel Anda dalam format Markdown atau MDX...
+```
 
-<img src="https://ricoui.com/assets/wechat.png" alt="ricocc-wechat" width="280" />
+### Menambah Riwayat Changelog
+Buat file baru di `src/content/changelog/[id-versi].mdx`:
+```mdx
+---
+title: "v1.3.0 — Fitur Baru"
+publishDate: 2026-10-10
+version: "1.3.0"
+description: "Ringkasan perubahan versi ini."
+---
 
-I post updates on my blog [Rico's Blog](https://ricoui.com/). You can also follow me on [Xiaohongshu @Rico的设计漫想](https://www.xiaohongshu.com/user/profile/5f2b6903000000000101f51f) and [X @ricouii](https://x.com/ricouii).
-
-If RicoFast helps you ship something, [star the repo](https://github.com/ricocc/ricoui-saas-template) — it's the simplest way to let me know.
-
-
-## Support the author
-
-If this template has been helpful, even a little support goes a long way in encouraging creators. Thank you!
-
-<a href="https://ko-fi.com/T6T817U4KZ" target="_blank"><img height="40" src="https://storage.ko-fi.com/cdn/kofi2.png?v=6" alt="Buy Me a Coffee at ko-fi.com" /></a>
-
-
-<img src="public/rico/wechat-qr.jpg" alt="ricocc-wechat" width="280" />
-
-<br/>
-
-
+## Fitur Baru
+- Peningkatan sinkronisasi real-time...
+```
 
 ---
 
-⭐ If this template saves you time, please give it a Star.
+## 🚢 Panduan Deployment
+
+Output `pnpm build` menghasilkan folder statis `dist/` murni tanpa memerlukan node server di runtime:
+
+- **Vercel:** Hubungkan git repository, framework preset otomatis terdeteksi sebagai `Astro`.
+- **Netlify:** Build command: `pnpm build`, Publish directory: `dist`.
+- **Cloudflare Pages:** Build command: `pnpm build`, Output directory: `dist`.
+- **Web Server / Nginx (Self-Hosted):** Copy isi folder `dist/` ke direktori web server Anda (`/var/www/html/`).
+
+---
+
+## 📄 Lisensi
+Didistribusikan di bawah lisensi MIT.
+© 2026 **B1connect**. Hak Cipta Dilindungi.
