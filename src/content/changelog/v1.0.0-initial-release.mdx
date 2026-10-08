@@ -1,0 +1,15 @@
+---
+title: "v1.0.0 — Rilis Perdana Produksi"
+publishDate: 2026-07-28
+version: "v1.0.0"
+description: "Rilis versi produksi pertama B1connect dengan arsitektur multi-tenant, sinkronisasi bi-directional, dan enkripsi tingkat enterprise."
+---
+
+## Fitur Utama
+
+- **Arsitektur Multi-Tenant**: Satu engine instalasi mendukung banyak toko Shopify sekaligus dengan isolasi database dan konfigurasi independen.
+- **Bi-Directional Synchronization**: Sinkronisasi Item Master dan stok (SAP B1 → Shopify) dan Sales Order (Shopify → SAP B1 dokumen ORDR).
+- **Keamanan Standar Enterprise**: Enkripsi AES-256-GCM at-rest untuk semua kredensial, verifikasi webhook Shopify menggunakan HMAC-SHA256 constant-time, dan autentikasi sesi JWT.
+- **Background Engine Berkecepatan Tinggi**: Ditenagai .NET 10 dan Hangfire dengan antrean retry otomatis dan dead-letter queue.
+- **Dukungan Self-Signed SSL**: Opsi koneksi ke SAP B1 Service Layer on-premise yang menggunakan sertifikat SSL internal.
+- **Health Check Endpoint**: Monitoring kesehatan service otomatis melalui `/health`.

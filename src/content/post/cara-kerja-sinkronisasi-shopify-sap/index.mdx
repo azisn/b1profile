@@ -1,0 +1,33 @@
+---
+title: "Bagaimana B1connect Menyinkronkan Data Antara Shopify dan SAP B1"
+description: "Ulasan teknis mengenai mekanisme background polling, webhook instant ingestion, dan field mapping di balik engine B1connect."
+publishDate: 2026-08-15
+read: 6
+tags: ["Teknis", "Arsitektur", "Sinkronisasi"]
+img: "/assets/article-cover.jpg"
+img_alt: "Arsitektur Sinkronisasi B1connect"
+featured: false
+---
+
+Di balik kemudahan antarmuka B1connect, terdapat arsitektur backend yang dirancang untuk kecepatan, keandalan, dan integritas data transaksi bisnis tingkat tinggi. Artikel ini mengupas bagaimana data mengalir antara Shopify dan SAP Business One secara teknis.
+
+## 1. Alur Sinkronisasi Master Item & Stok (SAP ➔ Shopify)
+
+Data katalog produk dan stok fisik berasal dari SAP Business One sebagai sumber kebenaran (*single source of truth*).
+
+- **Interval Polling**: Worker background Hangfire menjalankan query delta ke SAP B1 Service Layer setiap 30 detik.
+- **Deteksi Perubahan**: Sistem membandingkan timestamp `UpdateDate` dan `UpdateTime` pada tabel `OITM` (Item Master) dan `OITW` (Item Warehouse) menggunakan cache Redis, sehingga hanya data yang mengalami perubahan (*delta change*) yang diproses.
+- **Mapping Field**: Field SAP seperti `ItemCode`, `ItemName`, `SalUnitMsr` (UoM), dan barcode dikonversi secara otomatis menjadi format Shopify Product & Variant API.
+- **Multi-Warehouse Routing**: Stok dari beberapa kode gudang SAP dapat digabungkan atau diarahkan ke lokasi fulfillment Shopify yang sesuai.
+
+## 2. Alur Transaksi Sales Order (Shopify ➔ SAP B1)
+
+Ketika pelanggan menyelesaikan transaksi checkout di toko Shopify:
+
+- **Webhook Event**: Shopify mengirim payload webhook instan untuk event `orders/paid` ke endpoint aman B1connect.
+- **Validasi Kriptografis**: B1connect memvalidasi header `X-Shopify-Hmac-Sha256` dengan membandingkan hash secret menggunakan perbandingan waktu konstan (*constant-time comparison*) untuk menangkal serangan *timing attack*.
+- **Pencocokan Business Partner (BP)**: Sistem mencari pelanggan di SAP berdasarkan email atau ID Shopify. Jika belum terdaftar, sistem dapat membuat data Business Partner baru di tabel `OCRD` secara otomatis.
+- **Penerbitan Dokumen ORDR**: Dokumen Sales Order diterbitkan melalui Service Layer API lengkap dengan line items, harga, pajak, dan ongkos kirim.
+- **Dead-Letter Queue**: Bila koneksi SAP sedang sibuk atau offline, antrean Hangfire akan mencoba ulang secara berkala (*exponential backoff retry*) tanpa kehilangan data pesanan.
+
+Arsitektur ini memastikan operasional toko online Anda berjalan tanpa hambatan dan bebas dari salah input data manual.

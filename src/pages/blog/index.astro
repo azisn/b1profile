@@ -2,16 +2,17 @@
 import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/elements/PageHeader.astro";
 import BlogSection from "@/components/sections/BlogSection.astro";
+import { siteConfig } from "@/config/site";
 
 const POSTS_PER_PAGE = 6;
 const currentPage = 1;
 ---
 
-<Layout title="Blog — RicoFast" description="Latest articles, updates, and insights from the RicoFast team.">
+<Layout title={`Blog & Wawasan — ${siteConfig.title}`} description="Wawasan, panduan teknis, dan informasi seputar integrasi e-commerce Shopify dan ERP SAP Business One.">
   <section class="relative z-20 container mx-auto my-12 px-7 lg:px-0">
     <PageHeader
-      title="Blog"
-      description="Latest articles, updates, and insights."
+      title="Blog & Wawasan Integrasi"
+      description="Panduan teknis, studi kasus, dan kabar pembaruan seputar ekosistem Shopify dan SAP Business One."
     />
   </section>
   <section class="relative z-20 mx-auto my-12 lg:px-0">

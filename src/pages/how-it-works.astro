@@ -1,0 +1,253 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/elements/PageHeader.astro";
+import Button from "@/components/ui/Button.astro";
+import { siteConfig } from "@/config/site";
+import {
+  ShoppingBag, Database, ArrowRight, ArrowLeftRight,
+  Server, Cpu, ShieldCheck, RefreshCw, Zap, Boxes, CheckCheck
+} from "@lucide/astro";
+
+const steps = [
+  {
+    number: "01",
+    title: "Install & Otorisasi Toko Shopify",
+    desc: "Cukup buka link instalasi aplikasi B1connect. Melalui standar OAuth resmi Shopify, aplikasi terpasang di toko online Anda dalam hitungan detik. Seluruh token akses dienkripsi secara aman.",
+    points: [
+      "Instalasi via OAuth Shopify App Bridge",
+      "Kredensial disimpan dengan enkripsi AES-256-GCM",
+      "Tidak ada kode tema (theme Liquid/JSON) yang diubah"
+    ]
+  },
+  {
+    number: "02",
+    title: "Konfigurasi SAP B1 Service Layer & Field Mapping",
+    desc: "Buka antarmuka Setup Wizard di admin Shopify Anda. Masukkan URL Service Layer SAP B1, CompanyDB, dan akun koneksi. Kemudian petakan SKU, Price List, dan gudang pengiriman.",
+    points: [
+      "Koneksi resmi via SAP Service Layer API (HANA / SQL Server)",
+      "Fitur Test Connection langsung untuk verifikasi jaringan",
+      "Mapping field produk, satuan unit (UoM), dan Price List",
+      "Dukungan self-signed SSL untuk server SAP on-premise"
+    ]
+  },
+  {
+    number: "03",
+    title: "Sinkronisasi Otomatis Aktif & Siap Dipantau",
+    desc: "Aktifkan engine sinkronisasi. Produk dan stok dari gudang SAP otomatis tampil di katalog Shopify, sementara pesanan pembeli langsung diterbitkan sebagai dokumen Sales Order di SAP.",
+    points: [
+      "Polling otomatis mutasi stok setiap 30 detik",
+      "Webhook instan orders/paid langsung ke dokumen ORDR/ODLN",
+      "Dashboard monitoring & event audit stream real-time"
+    ]
+  }
+];
+
+const dataFlows = [
+  {
+    direction: "SAP Business One ➔ Shopify",
+    tag: "Katalog & Stok",
+    frequency: "Polling otomatis setiap 30 detik",
+    items: [
+      { name: "Master Item (OITM)", desc: "ItemCode, ItemName, Deskripsi, Barcode, & Gambar produk" },
+      { name: "Inventory Stok (OITW)", desc: "Kuantitas on-hand multi-warehouse / multi-gudang fisik" },
+      { name: "Daftar Harga (ITM1)", desc: "Price List tier, mata uang Rupiah/Valas, dan diskon" }
+    ]
+  },
+  {
+    direction: "Shopify ➔ SAP Business One",
+    tag: "Transaksi & Pelanggan",
+    frequency: "Real-time webhook (Latensi < 0.5 detik)",
+    items: [
+      { name: "Sales Orders (ORDR)", desc: "Order checkout pelanggan, line item, kuantitas, pajak, & ongkir" },
+      { name: "Customer Master (OCRD)", desc: "Pencocokan atau pendaftaran Business Partner (BP) baru" },
+      { name: "Delivery / Fulfillment", desc: "Status pengiriman dan nomor resi ter-update dua arah" }
+    ]
+  }
+];
+
+const techHighlights = [
+  { icon: Cpu, title: ".NET 10 Core", desc: "Backend compiled performa tinggi untuk pemrosesan throughput transaksi masif." },
+  { icon: Server, title: "PostgreSQL", desc: "Database relational yang andal dengan schema multi-tenant terisolasi penuh." },
+  { icon: Zap, title: "Redis Cache", desc: "High-speed in-memory store untuk idempotency token & antrean sinkronisasi." },
+  { icon: RefreshCw, title: "Hangfire Worker", desc: "Background job processor dengan mekanisme dead-letter queue & auto-retry." },
+  { icon: Boxes, title: "Docker Ready", desc: "Kontainerisasi modern untuk kemudahan deployment di VPS lokal maupun Cloud." },
+  { icon: ShieldCheck, title: "AES-256-GCM & HMAC", desc: "Enkripsi data at-rest dan validasi kriptografis untuk setiap webhook." },
+];
+---
+
+<Layout
+  title={`Cara Kerja Integrasi — ${siteConfig.title}`}
+  description="Pelajari bagaimana B1connect menghubungkan Shopify dengan SAP Business One melalui arsitektur middleware yang otomatis, aman, dan tanpa modifikasi core SAP."
+>
+  <section class="site-container my-12">
+    <PageHeader
+      title="Bagaimana B1connect Bekerja"
+      description="Dari instalasi pertama hingga sinkronisasi data dua arah otomatis berjalan — dalam 3 langkah mudah tanpa coding rumit."
+    />
+  </section>
+
+  <!-- Section 1: Visual Architecture Diagram -->
+  <section class="site-container pb-16 md:pb-24" data-aos="fade-up-xs" data-aos-once="true">
+    <div class="rounded-3xl border border-primary/20 bg-bg-secondary dark:bg-bg-secondary-dark p-6 md:p-10 shadow-sm overflow-hidden">
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-2">
+          Arsitektur Sistem
+        </span>
+        <h2 class="text-2xl md:text-3xl font-brand">Jembatan Cerdas Antara E-Commerce & ERP</h2>
+      </div>
+
+      <!-- Diagram Nodes -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+        <!-- Node 1: Shopify -->
+        <div class="p-6 rounded-2xl bg-bg-primary/80 dark:bg-neutral-800/80 border border-primary/15 text-center flex flex-col items-center">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+            <ShoppingBag class="w-7 h-7" />
+          </div>
+          <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-100">Shopify Store</h3>
+          <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 mb-3">Front-end Etalase & Checkout</p>
+          <div class="w-full space-y-1.5 text-[11px] font-mono text-neutral-600 dark:text-neutral-300">
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Katalog Produk & Variant</div>
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Customer Checkout Order</div>
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Webhooks: orders/paid</div>
+          </div>
+        </div>
+
+        <!-- Node 2: B1connect Engine -->
+        <div class="p-6 rounded-2xl bg-gradient-to-b from-blue-600/10 to-indigo-600/10 border-2 border-primary/30 text-center flex flex-col items-center relative">
+          <div class="w-14 h-14 rounded-2xl bg-primary text-white flex items-center justify-center mb-4 shadow-md shadow-primary/30">
+            <ArrowLeftRight class="w-7 h-7" />
+          </div>
+          <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-100">B1connect Middleware</h3>
+          <p class="text-xs text-primary font-semibold mt-1 mb-3">Multi-Tenant Sync Engine</p>
+          <div class="w-full space-y-1.5 text-[11px] font-mono text-neutral-700 dark:text-neutral-200">
+            <div class="p-1.5 rounded bg-bg-primary/90 dark:bg-neutral-800/90 border border-primary/20">AES-256-GCM Secret Store</div>
+            <div class="p-1.5 rounded bg-bg-primary/90 dark:bg-neutral-800/90 border border-primary/20">Data Normalizer & Field Mapper</div>
+            <div class="p-1.5 rounded bg-bg-primary/90 dark:bg-neutral-800/90 border border-primary/20">Hangfire Queue & Auto-Retry</div>
+          </div>
+        </div>
+
+        <!-- Node 3: SAP Business One -->
+        <div class="p-6 rounded-2xl bg-bg-primary/80 dark:bg-neutral-800/80 border border-primary/15 text-center flex flex-col items-center">
+          <div class="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
+            <Database class="w-7 h-7" />
+          </div>
+          <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-100">SAP Business One</h3>
+          <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 mb-3">ERP Enterprise & Warehouse</p>
+          <div class="w-full space-y-1.5 text-[11px] font-mono text-neutral-600 dark:text-neutral-300">
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Service Layer REST API</div>
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Master Item & Multi-Warehouse</div>
+            <div class="p-1.5 rounded bg-bg-secondary dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">Sales Order (ORDR / ODLN)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: 3 Simple Steps -->
+  <section class="site-container py-16 md:py-24">
+    <div class="text-center max-w-2xl mx-auto mb-14" data-aos="fade-up-xs" data-aos-once="true">
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Mulai Berjalan Hanya Dalam 3 Langkah</h2>
+      <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+        Proses setup dirancang tanpa membebani tim IT Anda. Cepat, aman, dan terverifikasi secara instan.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {steps.map((step, i) => (
+        <div
+          class="p-7 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 dark:border-neutral-700 flex flex-col justify-between hover:shadow-md transition-all duration-300"
+          data-aos="fade-up-sm"
+          data-aos-delay={i * 120}
+          data-aos-once="true"
+        >
+          <div>
+            <div class="text-4xl font-black text-primary/30 mb-4 font-mono">{step.number}</div>
+            <h3 class="text-xl font-bold text-neutral-800 dark:text-neutral-100 mb-2">{step.title}</h3>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-6">{step.desc}</p>
+          </div>
+          <ul class="space-y-2.5 pt-4 border-t border-dashed border-primary/10 dark:border-neutral-700">
+            {step.points.map((p) => (
+              <li class="flex items-start gap-2 text-xs text-neutral-600 dark:text-neutral-300">
+                <CheckCheck class="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
+                <span>{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 3: Detailed Data Flow -->
+  <section class="site-container py-16 md:py-24" data-aos="fade-up-xs" data-aos-once="true">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Rincian Alur Sinkronisasi Data</h2>
+      <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+        Kedua arah sinkronisasi bekerja independen untuk memastikan integritas data katalog dan dokumen keuangan.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {dataFlows.map((flow) => (
+        <div class="p-7 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/15 shadow-xs">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary">
+              {flow.tag}
+            </span>
+            <span class="text-xs text-neutral-400 font-mono">{flow.frequency}</span>
+          </div>
+          <h3 class="text-xl font-bold text-neutral-800 dark:text-neutral-100 mb-5">{flow.direction}</h3>
+
+          <div class="space-y-3">
+            {flow.items.map((item) => (
+              <div class="p-3.5 rounded-xl bg-bg-primary/50 dark:bg-neutral-800/50 border border-primary/10">
+                <div class="text-sm font-semibold text-neutral-800 dark:text-neutral-200">{item.name}</div>
+                <div class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5 leading-relaxed">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 4: Architecture & Security Highlights -->
+  <section class="site-container py-16 md:py-24" data-aos="fade-up-xs" data-aos-once="true">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Fondasi Teknis Standar Enterprise</h2>
+      <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+        Dibangun dengan standar keamanan finansial dan keandalan sistem cloud-native modern.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {techHighlights.map((tech) => (
+        <div class="p-5 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 hover:border-primary/30 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3">
+            <tech.icon class="w-5 h-5" />
+          </div>
+          <h3 class="text-base font-bold text-neutral-800 dark:text-neutral-100 mb-1">{tech.title}</h3>
+          <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">{tech.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 5: Bottom CTA -->
+  <section class="py-16 md:py-24 site-container" data-aos="fade-up-xs" data-aos-once="true">
+    <div class="max-w-2xl mx-auto text-center rounded-3xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/15 p-8 md:p-14">
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Siap Mengintegrasikan Sistem Anda?</h2>
+      <p class="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed">
+        Jadwalkan sesi demonstrasi langsung dan konsultasi implementasi bersama tim engineer B1connect.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <Button url="/contact" type="fill" className="text-base px-8 py-3">
+          Jadwalkan Demo Gratis <ArrowRight size={18} class="ml-1" />
+        </Button>
+        <Button url="/pricing" className="text-base px-8 py-3">
+          Lihat Skema Harga
+        </Button>
+      </div>
+    </div>
+  </section>
+</Layout>

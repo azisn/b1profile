@@ -1,0 +1,13 @@
+---
+title: "v1.1.0 — Multi-Warehouse & Optimasi Pemetaan UoM"
+publishDate: 2026-08-20
+version: "v1.1.0"
+description: "Peningkatan pemetaan stok multi-gudang (multi-warehouse routing) dan fleksibilitas konversi Unit of Measure (UoM)."
+---
+
+## Peningkatan & Fitur Baru
+
+- **Multi-Warehouse Routing**: Pengguna kini dapat memetakan gudang spesifik di SAP B1 ke lokasi inventori toko di Shopify.
+- **Fleksibilitas Konversi UoM**: Dukungan pemetaan satuan unit penjualan majemuk (misal: Box/Karton ke Pcs/Unit).
+- **Optimasi Redis Cache**: Mempercepat pengecekan stok delta hingga 45% lebih cepat saat polling katalog ribuan SKU.
+- **Perbaikan Stabilitas**: Peningkatan mekanisme reconnect otomatis saat SAP B1 Service Layer mengalami restart terjadwal.
