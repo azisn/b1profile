@@ -2,7 +2,6 @@
 import PricingToggle from "@/components/ui/PricingToggle.astro";
 import Button from "@/components/ui/Button.astro";
 import SectionHeader from "@/components/elements/SectionHeader.astro";
-import { siteConfig } from "@/config/site";
 import { Check, X, ArrowRight, Sparkles } from "@lucide/astro";
 
 interface Props {
@@ -12,69 +11,77 @@ interface Props {
 }
 
 const {
-  title = "Simple, transparent pricing",
-  description = "Choose a plan that fits your stage. Upgrade anytime as you grow.",
+  title = "Pilihan Paket Integrasi",
+  description = "Investasi transparan yang fleksibel. Upgrade kapan saja seiring pertumbuhan volume transaksi Anda.",
   showHeader = true,
 } = Astro.props;
 
 const plans = [
   {
-    name: "Free",
-    monthlyPrice: "$0",
-    yearlyPrice: "$0",
-    monthlyDescription: "For makers exploring a new idea on the side.",
-    yearlyDescription: "Stay free forever — annual billing won't cost you a cent.",
-    monthlySuffix: "/ month",
-    yearlySuffix: "/ month, billed yearly",
+    name: "Starter",
+    monthlyPrice: "Rp 1,5 Jt",
+    yearlyPrice: "Rp 1,2 Jt",
+    monthlyDescription: "Untuk 1 toko online Shopify yang ingin integrasi otomatis ke SAP B1.",
+    yearlyDescription: "Hemat 20% dengan paket tahunan untuk operasional toko Anda.",
+    monthlySuffix: "/ bln",
+    yearlySuffix: "/ bln (tahunan)",
     features: [
-      { text: "1 active project", included: true },
-      { text: "Core component library", included: true },
-      { text: "MDX content support", included: true },
-      { text: "Self-host only", included: true },
-      { text: "Community support", included: true },
-      { text: "Email support", included: false },
+      { text: "1 Toko Shopify terhubung", included: true },
+      { text: "1 Instance SAP B1 (Service Layer)", included: true },
+      { text: "Sync Master Produk & Harga", included: true },
+      { text: "Sync Stok (Interval 5 menit)", included: true },
+      { text: "Sales Order masuk otomatis ke SAP", included: true },
+      { text: "Dashboard Monitoring & Log", included: true },
+      { text: "Dukungan Email (48 jam)", included: true },
+      { text: "Multi-warehouse routing", included: false },
     ],
-    cta: "Get started",
+    cta: "Mulai 14-Hari Trial",
     popular: false,
+    url: "/contact",
   },
   {
-    name: "Pro",
-    monthlyPrice: "$19",
-    yearlyPrice: "$15",
-    monthlyDescription: "For indie makers shipping their first real product.",
-    yearlyDescription: "Save 20% — best for makers committing to the long haul.",
-    monthlySuffix: "/ month",
-    yearlySuffix: "/ month, billed yearly",
+    name: "Business",
+    monthlyPrice: "Rp 3,5 Jt",
+    yearlyPrice: "Rp 2,8 Jt",
+    monthlyDescription: "Untuk brand berkembang dengan volume pesanan tinggi atau multi-cabang.",
+    yearlyDescription: "Hemat 20% — sinkronisasi cepat 30 detik & multi-warehouse.",
+    monthlySuffix: "/ bln",
+    yearlySuffix: "/ bln (tahunan)",
     features: [
-      { text: "Unlimited projects", included: true },
-      { text: "Full component library", included: true },
-      { text: "Advanced layout system", included: true },
-      { text: "Custom domains", included: true },
-      { text: "Built-in animations", included: true },
-      { text: "Email support (1 biz day)", included: true },
-      { text: "Quarterly office hours", included: true },
+      { text: "Hingga 5 Toko Shopify", included: true },
+      { text: "Polling cepat setiap 30 detik", included: true },
+      { text: "Real-time webhook sales order", included: true },
+      { text: "Custom Field Mapping (UoM & Status)", included: true },
+      { text: "Multi-warehouse inventory routing", included: true },
+      { text: "Dead-letter queue & auto retry", included: true },
+      { text: "Dukungan Prioritas (1 hari kerja)", included: true },
+      { text: "1 Sesi Onboarding teknis", included: true },
     ],
-    cta: "Start free trial",
+    cta: "Mulai 14-Hari Trial",
     popular: true,
+    url: "/contact",
   },
   {
     name: "Enterprise",
-    monthlyPrice: "$49",
-    yearlyPrice: "$39",
-    monthlyDescription: "For teams scaling beyond a single founder.",
-    yearlyDescription: "Save 20% on annual — plus a dedicated onboarding session.",
-    monthlySuffix: "/ month",
-    yearlySuffix: "/ month, billed yearly",
+    monthlyPrice: "Custom",
+    yearlyPrice: "Custom",
+    monthlyDescription: "Untuk grup perusahaan besar dengan kebutuhan kustom dan SLA ketat.",
+    yearlyDescription: "Dedicated engine, SLA 99.9%, dan engineer pendamping khusus.",
+    monthlySuffix: "",
+    yearlySuffix: "(kontrak tahunan)",
     features: [
-      { text: "Everything in Pro", included: true },
-      { text: "Team collaboration (10+ seats)", included: true },
-      { text: "SSO + audit log", included: true },
-      { text: "Custom integrations", included: true },
-      { text: "Priority support (same day)", included: true },
-      { text: "99.9% SLA", included: true },
+      { text: "Unlimited Toko Shopify & Cabang", included: true },
+      { text: "Dedicated Engine & On-Premise Host", included: true },
+      { text: "Dukungan custom SAP B1 UDF / Logic", included: true },
+      { text: "Jaminan SLA Uptime 99.9%", included: true },
+      { text: "Audit log tak terbatas", included: true },
+      { text: "Pendampingan implementasi penuh", included: true },
+      { text: "Dedicated Engineer & Hotline 24/7", included: true },
+      { text: "Perjanjian Kerahasiaan (NDA)", included: true },
     ],
-    cta: "Contact sales",
+    cta: "Hubungi Tim Sales",
     popular: false,
+    url: "/contact",
   },
 ];
 ---
@@ -162,7 +169,7 @@ const plans = [
           </ul>
 
           <Button
-            url={plan.popular ? siteConfig.social.github : "#"}
+            url={plan.url || "/contact"}
             type={plan.popular ? "fill" : "outline"}
             className="w-full justify-center"
           >
