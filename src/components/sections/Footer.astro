@@ -10,26 +10,22 @@ const footerLinks = {
     { name: "Features", url: "/features" },
     { name: "Pricing", url: "/pricing" },
     { name: "Changelog", url: "/changelog" },
-    { name: "Sign in", url: "/sign-in" },
-    { name: "Sign up", url: "/sign-up" },
   ],
   resources: [
     { name: "Blog", url: "/blog" },
-    { name: "Elements", url: "/elements" },
-    { name: "404", url: "/404" },
-    { name: "Docs", url: siteConfig.social.github + "#readme" },
-    { name: "GitHub", url: siteConfig.social.github },
+    { name: "FAQ", url: "/#faq" },
+    { name: "Architecture", url: "/features" },
   ],
   company: [
     { name: "About", url: "/about" },
     { name: "Contact", url: "/contact" },
   ],
   legal: [
-    { name: "License (MIT)", url: siteConfig.social.github + "/blob/main/LICENSE" },
+    { name: "Privacy Policy", url: "/contact" },
+    { name: "Terms of Service", url: "/contact" },
   ],
 };
 
-const templateVersion = "v1.0.0";
 ---
 
 <section class="text-gray-700 border-t mt-20 md:mt-48 border-dashed border-primary/15 dark:border-primary-dark/15 border-[.75px]">
@@ -39,7 +35,7 @@ const templateVersion = "v1.0.0";
       <div class="max-w-sm">
         <Logo />
         <p class="mt-4 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
-          A polished SaaS template built with Astro and Tailwind CSS. Open-source, fast, and ready for production.
+          Middleware integrasi Shopify × SAP Business One otomatis, aman, dan siap pakai untuk bisnis Anda.
         </p>
       </div>
 
@@ -107,17 +103,17 @@ const templateVersion = "v1.0.0";
     <div class="border-t border-dashed border-primary/10 dark:border-primary-dark/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <p class="text-sm text-neutral-400 dark:text-neutral-500">
         © {currentYear}
-        <a href={siteConfig.url || " "} target="_blank" class="hover:text-primary dark:hover:text-primary-light transition-colors">{siteConfig.author || " "}</a>.
-        Released under the MIT License.
+        <a href={siteConfig.url || " "} class="hover:text-primary dark:hover:text-primary-light transition-colors font-medium">{siteConfig.title || "B1connect"}</a>.
+        Hak Cipta Dilindungi.
       </p>
 
       <div class="flex items-center gap-4">
         <span class="inline-flex items-center gap-2 text-xs text-neutral-400 dark:text-neutral-500">
           <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-dashed border-primary/30 text-primary/80">
             <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-            {templateVersion}
+            Shopify × SAP B1 Solution
           </span>
-          <span>Built with Astro & Tailwind</span>
+          <span>Enterprise Ready</span>
         </span>
         <span class="inline-flex justify-center space-x-4">
           {socialLinks.map((social) => (

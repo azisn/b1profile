@@ -4,21 +4,23 @@
 		"url": "/"
 	},
 	{
-		"name": "Pages",
+		"name": "Features",
+		"url": "/features"
+	},
+	{
+		"name": "Pricing",
+		"url": "/pricing"
+	},
+	{
+		"name": "Resources",
 		"children": [
-			{ "name": "Features", "url": "/features" },
-			{ "name": "Pricing", "url": "/pricing" },
-			{ "name": "About", "url": "/about" },
 			{ "name": "Blog", "url": "/blog" },
-			{ "name": "Changelog", "url": "/changelog" },
-			{ "name": "Sign in", "url": "/sign-in" },
-			{ "name": "Sign up", "url": "/sign-up" },
-			{ "name": "404", "url": "/404" }
+			{ "name": "Changelog", "url": "/changelog" }
 		]
 	},
 	{
-		"name": "Elements",
-		"url": "/elements"
+		"name": "About",
+		"url": "/about"
 	},
 	{
 		"name": "Contact",
