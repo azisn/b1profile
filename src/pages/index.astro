@@ -10,59 +10,120 @@ import BrowserFrame from "@/components/ui/BrowserFrame.astro";
 import TechStackCard from "@/components/cards/TechStackCard.astro";
 import { siteConfig } from "@/config/site";
 import {
-  LayoutDashboard, Layers, FileText,
-  Bot, Code, PenTool, Rocket, GitFork, ChartNoAxesColumnIncreasing,
-  ArrowRight,
-  Compass, Triangle, Sun, CircleDot, Orbit, Anvil
+  ShoppingBag, Database, Server, Zap, Boxes, Clock,
+  ShieldCheck, Factory, Package, Globe,
+  ArrowRight, LayoutDashboard, Layers, FileText,
+  ChartNoAxesColumnIncreasing, Tag, Users, CheckCheck
 } from "@lucide/astro";
 
 // FAQ data
 const faqItems = [
-  { question: "Is this template free?", answer: "Yes. RicoFast is MIT-licensed and free for both personal and commercial use. Fork it, ship with it, sell what you build on top of it — no attribution required." },
-  { question: "Do I need to know Astro to use it?", answer: "Basic HTML/CSS familiarity is enough. The template is structured so the first 90% of customization happens in three places: site.js, global.css tokens, and content directories. Most users ship without writing any new Astro components." },
-  { question: "Can I customize the design system?", answer: "Yes. Colors, fonts, spacing, and border radii are all CSS custom properties defined in src/styles/global.css. The full token reference lives in docs/DESIGN.md so you always know what to change." },
-  { question: "Where can I deploy it?", answer: "Anywhere that hosts static sites — Vercel, Netlify, Cloudflare Pages, GitHub Pages, AWS S3, or your own server. The build outputs a plain dist/ directory. Vercel and Netlify have one-click setup." },
-  { question: "How fast is it really?", answer: "Lighthouse 95+ across Performance, Accessibility, Best Practices, and SEO on a fresh install. Astro ships zero JS by default — interactive bits load only where needed." },
-  { question: "Is there support?", answer: "Yes — open an issue on GitHub. The repo is actively maintained and community contributions are welcome. The Pro/Enterprise tiers shown on the Pricing page are demo content for the template itself, not a paid plan for RicoFast." },
+  {
+    question: "Apakah B1connect mendukung multi-tenant untuk banyak toko Shopify?",
+    answer: "Ya. B1connect dirancang dengan arsitektur multi-tenant sejati. Anda dapat mengelola banyak toko Shopify sekaligus, baik untuk cabang toko, brand berbeda, maupun anak perusahaan yang terhubung ke SAP Business One."
+  },
+  {
+    question: "Data apa saja yang disinkronisasi antara Shopify dan SAP B1?",
+    answer: "Data yang disinkronkan mencakup 5 modul utama: Master Produk (Item Master), Stok Inventory multi-warehouse, Daftar Harga (Price List), Sales Orders, dan Informasi Pelanggan (Business Partner). Berjalan via webhook instan dan polling otomatis."
+  },
+  {
+    question: "Bagaimana keamanan data dan kredensial SAP kami?",
+    answer: "Keamanan adalah prioritas utama. Seluruh kredensial SAP B1 dan token Shopify dienkripsi menggunakan AES-256-GCM. Webhook Shopify diverifikasi menggunakan signature HMAC-SHA256, dan session diamankan dengan JWT."
+  },
+  {
+    question: "Apakah mendukung SAP Business One on-premise dan SQL / HANA?",
+    answer: "Ya. B1connect berkomunikasi melalui SAP B1 Service Layer API resmi, sehingga mendukung deployment on-premise maupun cloud, baik database Microsoft SQL Server maupun SAP HANA."
+  },
+  {
+    question: "Berapa lama estimasi waktu setup dan go-live?",
+    answer: "Untuk toko yang sudah memiliki akses Service Layer SAP B1 aktif, proses setup awal biasanya selesai dalam 1-2 hari kerja: instalasi app, pemetaan field (mapping data), dan verifikasi transaksi test order."
+  },
+  {
+    question: "Apakah perlu instalasi add-on atau modifikasi di dalam SAP?",
+    answer: "Tidak perlu add-on tambahan di core SAP. B1connect memanfaatkan Service Layer standar SAP Business One, sehingga database ERP Anda tetap aman tanpa risiko modifikasi kustom yang mengganggu upgrade SAP di masa mendatang."
+  },
 ];
 
 // Features data
 const features = [
-  { icon: "/assets/icon/structure.png",  title: "Clean page structure", desc: "9 pre-built pages — Home, Features, Pricing, Blog, Changelog, About, Contact, Elements, 404 — wired and responsive out of the box." },
-  { icon: "/assets/icon/components.png", title: "Reusable sections", desc: "15+ modular section components — Hero, FeatureGrid, Pricing, FAQ, Steps, FinalCTA — composable with no layout conflicts." },
-  { icon: "/assets/icon/document.png",   title: "MDX-powered content", desc: "Blog and changelog driven by Astro 6 Content Layer. Import components inside Markdown. No CMS needed." },
-  { icon: "/assets/icon/fast.png",       title: "Lightweight and fast", desc: "Zero JS by default. Lighthouse 95+ on Performance, Accessibility, Best Practices, and SEO from a fresh install." },
-  { icon: "/assets/icon/motion.png",     title: "Built-in motion", desc: "Scroll reveals via AOS, orchestrated entrances via motion.js. Honors prefers-reduced-motion." },
-  { icon: "/assets/icon/customize.png",  title: "Easy to customize", desc: "~30 CSS custom properties drive every color and font. Rebrand in minutes by editing one file." },
+  {
+    icon: "/assets/icon/structure.png",
+    title: "Sinkronisasi Bi-Directional",
+    desc: "Produk, stok, dan harga mengalir otomatis dari SAP B1 ke Shopify. Sales order dan data customer langsung masuk ke SAP B1 tanpa input manual."
+  },
+  {
+    icon: "/assets/icon/motion.png",
+    title: "Keamanan Standar Enterprise",
+    desc: "Enkripsi AES-256-GCM untuk seluruh kredensial database & token. Validasi signature HMAC-SHA256 untuk webhook Shopify dan autentikasi token JWT."
+  },
+  {
+    icon: "/assets/icon/components.png",
+    title: "Arsitektur Multi-Tenant",
+    desc: "Satu instalasi middleware mendukung banyak toko Shopify dan cabang gudang. Setiap tenant memiliki konfigurasi dan isolasi data terpisah."
+  },
+  {
+    icon: "/assets/icon/customize.png",
+    title: "Field Mapping Fleksibel",
+    desc: "Pemetaan kustom ItemCode ke SKU Shopify, nama produk, UoM (satuan), dan kode gudang tanpa perlu mengubah kode sumber backend."
+  },
+  {
+    icon: "/assets/icon/document.png",
+    title: "Audit Trail & Monitoring",
+    desc: "Log terperinci untuk setiap event transaksi. Pantau riwayat sinkronisasi order, deteksi error sedini mungkin, dan jalankan re-sync instan."
+  },
+  {
+    icon: "/assets/icon/fast.png",
+    title: "High-Performance Engine",
+    desc: "Dibangun dengan .NET 10, Redis cache, dan Hangfire background worker untuk pemrosesan ribuan SKU dan order secara simultan dan efisien."
+  },
 ];
 
 // Problem cards data
 const problems = [
-  { icon: "/assets/icon/clock.png",   title: "Starting fresh slows you down", desc: "Every SaaS needs the same 12 sections. Rebuilding them for every project costs weeks you should spend on the product." },
-  { icon: "/assets/icon/battery.png", title: "Generic templates devalue work", desc: "Most free templates look like templates. Your product deserves a site that feels deliberate, not stamped out." },
-  { icon: "/assets/icon/bell.png",    title: "Unstable systems break with growth", desc: "Ad-hoc colors, magic numbers, drift between pages — small inconsistencies compound until every change risks breaking something else." },
+  {
+    icon: "/assets/icon/clock.png",
+    title: "Input manual memakan waktu & rentan salah",
+    desc: "Mengetik ulang pesanan pelanggan dari Shopify ke SAP B1 satu per satu menghabiskan waktu berjam-jam setiap hari dan rentan human error atau pesanan tertinggal."
+  },
+  {
+    icon: "/assets/icon/battery.png",
+    title: "Stok tidak sinkron = pembatalan pesanan",
+    desc: "Stok habis di gudang fisik tapi masih tampil tersedia di Shopify. Pelanggan memesan barang yang tidak ada, menyebabkan kekecewaan dan rating buruk."
+  },
+  {
+    icon: "/assets/icon/bell.png",
+    title: "Harga berubah di SAP, toko online terlambat update",
+    desc: "Perubahan daftar harga di SAP Business One harus diupdate manual ke setiap channel toko online. Keterlambatan update harga menggerus margin laba perusahaan."
+  },
 ];
 
 // Use cases
 const useCases = [
-  { icon: Bot, label: "AI tools", desc: "Credible launch site from day one" },
-  { icon: Code, label: "Developer tools", desc: "API docs, SDK landing, dev platforms" },
-  { icon: PenTool, label: "Design tools", desc: "Creative apps and design systems" },
-  { icon: Rocket, label: "Micro SaaS", desc: "Indie projects and side hustles" },
-  { icon: GitFork, label: "Open-source", desc: "Project sites and community hubs" },
-  { icon: ChartNoAxesColumnIncreasing, label: "Analytics", desc: "Dashboards and data tools" },
+  { icon: ShoppingBag, label: "Retail & DTC", desc: "Toko online Shopify dengan gudang SAP B1" },
+  { icon: Factory, label: "Manufaktur & Pabrik", desc: "Penjualan langsung dari inventori pabrik" },
+  { icon: Package, label: "Distributor & Grosir B2B", desc: "Volume pesanan besar langsung masuk ke ERP" },
+  { icon: Globe, label: "Multi-Store Brand", desc: "Kelola banyak toko Shopify dalam satu dashboard" },
+  { icon: Boxes, label: "Inventory-Heavy", desc: "Puluhan ribu SKU dengan akurasi stok ketat" },
+  { icon: ShieldCheck, label: "Konsultan ERP & SAP", desc: "Solusi integrasi siap pasang untuk klien SAP" },
 ];
 
-
-// Logos placeholder — fictional brand wordmarks for the social-proof strip.
-// Swap with real customer logos / SVGs when shipping.
+// Tech stack and ecosystem partners
 const logos = [
-  { name: "Northwind", icon: Compass },
-  { name: "Acme", icon: Triangle },
-  { name: "Lumen", icon: Sun },
-  { name: "Helio", icon: CircleDot },
-  { name: "Orbit", icon: Orbit },
-  { name: "Forge", icon: Anvil },
+  { name: "Shopify", icon: ShoppingBag },
+  { name: "SAP B1", icon: Database },
+  { name: "PostgreSQL", icon: Server },
+  { name: "Redis", icon: Zap },
+  { name: "Docker", icon: Boxes },
+  { name: "Hangfire", icon: Clock },
+];
+
+// Pipelines
+const pipelines = [
+  { title: "Master Produk", direction: "SAP → Shopify", icon: Package, desc: "ItemCode, nama produk, kategori, dan deskripsi." },
+  { title: "Inventory Stok", direction: "SAP → Shopify", icon: Boxes, desc: "Update stok real-time multi-warehouse (gudang)." },
+  { title: "Price Lists", direction: "SAP → Shopify", icon: Tag, desc: "Sinkronisasi mata uang dan daftar harga jual." },
+  { title: "Sales Orders", direction: "Shopify → SAP", icon: ShoppingBag, desc: "Order otomatis terbit sebagai dokumen ODLN/ORDR." },
+  { title: "Data Customer", direction: "Shopify ↔ SAP", icon: Users, desc: "Pencocokan Business Partner (BP) otomatis." },
 ];
 ---
 
@@ -75,26 +136,31 @@ const logos = [
   <!-- 1. Hero -->
   <HeroSection />
 
-  <!-- 2. Logo / Social Proof -->
-  <section class="py-12 md:py-16 lg:py-24 site-container" data-aos="fade-up-xs" data-aos-once="true"  data-aos-delay="650" >
-    <p class="text-center text-sm text-neutral-400 dark:text-neutral-500 mb-6">Drop in your customer logos when you launch</p>
-    <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 opacity-60">
+  <!-- 2. Logo / Ecosystem Strip -->
+  <section class="py-12 md:py-16 lg:py-20 site-container" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="400">
+    <p class="text-center text-xs sm:text-sm uppercase tracking-wider font-semibold text-neutral-400 dark:text-neutral-500 mb-6">
+      Terintegrasi dengan Ekosistem ERP & E-Commerce Terpercaya
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-8">
       {logos.map((logo) => (
-        <div class="flex items-center gap-2 px-4 py-2 border border-dashed border-neutral-300 dark:border-neutral-700 rounded-lg">
-          <logo.icon class="w-4 h-4 text-neutral-400 dark:text-neutral-500" />
-          <span class="text-sm font-medium uppercase tracking-wider text-neutral-500 dark:text-neutral-400">{logo.name}</span>
+        <div class="flex items-center gap-2 px-4 py-2.5 border border-dashed border-neutral-300 dark:border-neutral-700 rounded-xl bg-bg-secondary/40 dark:bg-bg-secondary-dark/40 shadow-xs hover:border-primary/40 transition-colors">
+          <logo.icon class="w-4 h-4 text-primary" />
+          <span class="text-xs sm:text-sm font-semibold tracking-wide text-neutral-700 dark:text-neutral-200">{logo.name}</span>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- 3. Problem -->
+  <!-- 3. Problem Statement -->
   <section class="py-16 md:py-24 site-container">
-    <SectionHeader title="Most SaaS sites start with the wrong problems" description="The hard part isn't building features. It's building a site that doesn't feel generic, doesn't drift apart over time, and doesn't take a month of weekends." />
+    <SectionHeader
+      title="Tantangan Operasional Tanpa Integrasi Otomatis"
+      description="Mengelola penjualan Shopify dan ERP SAP B1 secara terpisah menimbulkan hambatan besar bagi efisiensi bisnis Anda."
+    />
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
       {problems.map((problem, i) => (
         <div
-          class="p-6 rounded-xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 dark:border-neutral-700"
+          class="p-6 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 dark:border-neutral-700 shadow-xs hover:shadow-md transition-all duration-300"
           data-aos="fade-up-sm"
           data-aos-delay={i * 100}
           data-aos-once="true"
@@ -105,7 +171,7 @@ const logos = [
             loading="lazy"
             width="64"
             height="64"
-            class="w-16 h-16 mb-4 object-contain"
+            class="w-14 h-14 mb-4 object-contain"
           />
           <h3 class="text-lg font-semibold text-neutral-800 dark:text-neutral-100 mb-2">{problem.title}</h3>
           <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">{problem.desc}</p>
@@ -114,45 +180,51 @@ const logos = [
     </div>
   </section>
 
-  <!-- 4. Solution -->
-  <section class="py-8 md:py-12 site-container" data-aos="fade-up-xs" data-aos-once="true">
-    <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-brand mb-4">A design system, not just a template</h2>
+  <!-- 4. Solution / 5 Core Pipelines -->
+  <section class="py-12 md:py-16 site-container" data-aos="fade-up-xs" data-aos-once="true">
+    <div class="max-w-3xl mx-auto text-center mb-10">
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Arsitektur Sinkronisasi Dua Arah (Bi-Directional)</h2>
       <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
-        RicoFast is built on a documented token system — colors, type scale, spacing, motion — so every page you add stays coherent with the ones already shipped. Less arbitration, fewer regressions, more time on the product.
+        B1connect menghubungkan Shopify dengan SAP Business One melalui Service Layer API resmi. Semua data penting tersinkronisasi otomatis tanpa menyentuh core SAP.
       </p>
     </div>
-    <div class="mt-10 md:mt-12 flex flex-wrap justify-center items-end gap-4 sm:gap-6 md:gap-8">
-      {[
-        { name: 'blue', file: 'folder-blue.webp' },
-        { name: 'yellow', file: 'folder-yellow.webp' },
-        { name: 'green', file: 'folder-greean.webp' },
-        { name: 'red', file: 'folder-red.webp' },
-        { name: 'gray', file: 'folder-gray.webp' },
-      ].map((folder, i) => (
+
+    <!-- Pipeline cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      {pipelines.map((p, i) => (
         <div
+          class="p-5 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 dark:border-neutral-700 flex flex-col justify-between hover:-translate-y-1 hover:shadow-md transition-all duration-300"
           data-aos="fade-up-xs"
-          data-aos-delay={i * 120}
+          data-aos-delay={i * 80}
           data-aos-once="true"
-          class="inline-block"
         >
-          <img
-            src={`/assets/folder/${folder.file}`}
-            alt={`${folder.name} folder`}
-            width="128"
-            height="128"
-            class="w-20 sm:w-24 md:w-28 lg:w-32 h-auto drop-shadow-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-105 hover:drop-shadow-lg"
-          />
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary mb-3">
+              <p.icon class="w-5 h-5" />
+            </div>
+            <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide bg-blue-500/10 text-blue-600 dark:text-blue-400 mb-2">
+              {p.direction}
+            </span>
+            <h3 class="text-base font-bold text-neutral-800 dark:text-neutral-100 mb-1">{p.title}</h3>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">{p.desc}</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-dashed border-primary/10 dark:border-neutral-700 flex items-center text-[11px] font-medium text-emerald-600 dark:text-emerald-400 gap-1.5">
+            <CheckCheck class="w-3.5 h-3.5" />
+            <span>Automated Flow</span>
+          </div>
         </div>
       ))}
     </div>
   </section>
 
-  <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700 my-4 site-container"></div>
+  <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700 my-8 site-container"></div>
 
   <!-- 5. Features Grid -->
   <section class="py-16 md:py-24 site-container">
-    <SectionHeader title="Everything you need, nothing you don't" description="A focused set of features built for real SaaS sites. No bloat, no half-finished add-ons." />
+    <SectionHeader
+      title="Fitur Unggulan Dirancang untuk Skalabilitas Bisnis"
+      description="Fondasi middleware modern dengan keandalan enterprise, keamanan mutakhir, dan kemudahan konfigurasi."
+    />
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
       {features.map((feature, i) => (
         <div
@@ -162,7 +234,7 @@ const logos = [
           class="h-full"
         >
           <div
-            class="h-full p-6 rounded-xl bg-bg-secondary dark:bg-bg-secondary-dark border transition-all duration-300 ease-in-out border-primary/10 dark:border-neutral-700 hover:shadow-md hover:-translate-y-1"
+            class="h-full p-6 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border transition-all duration-300 ease-in-out border-primary/10 dark:border-neutral-700 hover:shadow-md hover:-translate-y-1"
           >
             <img
               src={feature.icon}
@@ -170,7 +242,7 @@ const logos = [
               loading="lazy"
               width="64"
               height="64"
-              class="w-16 h-16 mb-4 object-contain"
+              class="w-14 h-14 mb-4 object-contain"
             />
             <h3 class="text-lg font-semibold text-neutral-800 dark:text-neutral-100 mb-2">{feature.title}</h3>
             <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">{feature.desc}</p>
@@ -180,12 +252,15 @@ const logos = [
     </div>
   </section>
 
-  <!-- 6. Product Preview -->
+  <!-- 6. Product Preview - Dashboard Mock -->
   <section class="py-16 md:py-24 site-container" data-aos="fade-up-sm" data-aos-once="true">
-    <SectionHeader title="A full layout system, not just sections" description="Hero, features, pricing, dashboards, settings — every page is composed from the same token system, so the whole product feels coherent." />
+    <SectionHeader
+      title="Dashboard Pemantauan & Event Stream Real-Time"
+      description="Pantau siklus sinkronisasi order, mutasi stok, dan status health service layer SAP B1 secara transparan dari satu layar."
+    />
     <div class="mt-8 max-w-4xl mx-auto" data-aos="fade-up-sm" data-aos-once="true" data-aos-delay="300">
-      <BrowserFrame url="app.ricoui.com/dashboard">
-        <div class="flex h-[300px] md:h-[400px]">
+      <BrowserFrame url="app.b1connect.id/sync/monitor">
+        <div class="flex h-[320px] md:h-[400px]">
           <!-- Sidebar -->
           <aside class="hidden sm:flex flex-col w-14 md:w-16 border-r border-primary/10 dark:border-neutral-700 bg-bg-primary/40 dark:bg-neutral-900/40 py-4 px-2 md:px-3 gap-2">
             <div class="w-7 h-7 mx-auto rounded-md bg-primary/15 border border-primary/30 flex items-center justify-center mb-2">
@@ -213,29 +288,28 @@ const logos = [
             <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-3">
                 <div>
-                  <h3 class="text-sm font-semibold text-neutral-800 dark:text-neutral-100 leading-none">Overview</h3>
-                  <p class="text-[10px] text-neutral-400 mt-1">Last 30 days</p>
+                  <h3 class="text-sm font-semibold text-neutral-800 dark:text-neutral-100 leading-none">Live Sync Monitor</h3>
+                  <p class="text-[10px] text-neutral-400 mt-1">Tenant: production-store.myshopify.com</p>
                 </div>
                 <span class="hidden md:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/5">
                   <span class="app-live-dot relative w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  <span class="text-[9px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-medium">Live</span>
+                  <span class="text-[9px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-medium">Engine Active</span>
                 </span>
               </div>
               <div class="flex items-center gap-2">
-                <div class="hidden md:block w-32 h-7 rounded-md border border-neutral-200 dark:border-neutral-700 bg-bg-primary/40 dark:bg-neutral-800/40"></div>
-                <div class="w-7 h-7 rounded-full bg-primary/20 border border-primary/30"></div>
+                <span class="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">SAP B1 Service Layer: <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Connected</span></span>
               </div>
             </div>
 
             <!-- Stat row -->
             <div class="grid grid-cols-3 gap-2 md:gap-3">
               {[
-                { label: "Revenue", value: "$48.2k", delta: "+22.1%" },
-                { label: "New users", value: "1,284", delta: "+8.4%" },
-                { label: "MRR", value: "$12.6k", delta: "+5.2%" },
+                { label: "Orders Synced (24h)", value: "342", delta: "100% Success" },
+                { label: "Active SKUs", value: "12,480", delta: "In Sync" },
+                { label: "Pending Queue", value: "0", delta: "Real-time" },
               ].map((s, i) => (
                 <div
-                  class="app-stat-card relative overflow-hidden rounded-md border border-primary/10 dark:border-neutral-700 bg-bg-primary/40 dark:bg-neutral-800/40 p-2 md:p-3"
+                  class="app-stat-card relative overflow-hidden rounded-lg border border-primary/10 dark:border-neutral-700 bg-bg-primary/40 dark:bg-neutral-800/40 p-2 md:p-3"
                   style={`--shimmer-delay: ${i * 1.2}s;`}
                 >
                   <span class="block text-[9px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400">{s.label}</span>
@@ -246,106 +320,118 @@ const logos = [
             </div>
 
             <!-- Table mock -->
-            <div class="flex-1 rounded-md border border-primary/10 dark:border-neutral-700 bg-bg-primary/40 dark:bg-neutral-800/40 overflow-hidden">
-              <div class="grid grid-cols-12 gap-2 px-3 py-2 border-b border-primary/10 dark:border-neutral-700 text-[9px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                <span class="col-span-5">Customer</span>
-                <span class="col-span-3">Plan</span>
+            <div class="flex-1 rounded-lg border border-primary/10 dark:border-neutral-700 bg-bg-primary/40 dark:bg-neutral-800/40 overflow-hidden">
+              <div class="grid grid-cols-12 gap-2 px-3 py-2 border-b border-primary/10 dark:border-neutral-700 text-[9px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold">
+                <span class="col-span-5">Event Source / Transaction</span>
+                <span class="col-span-3">Arah Aliran</span>
                 <span class="col-span-2">Status</span>
-                <span class="col-span-2 text-right">MRR</span>
+                <span class="col-span-2 text-right">Latensi</span>
               </div>
-              {[1, 2, 3, 4].map((i) => (
-                <div class:list={["grid grid-cols-12 gap-2 items-center px-3 py-2 border-b border-primary/5 dark:border-neutral-700/40 last:border-0", i === 1 && "app-row-cursor"]}>
+              {[
+                { name: "Order #SH-10492 — Sales Order", flow: "Shopify → SAP B1", status: "Success", latency: "0.4s" },
+                { name: "SKU-98402 — Stock Adjustment (WH-01)", flow: "SAP B1 → Shopify", status: "Updated", latency: "0.6s" },
+                { name: "Order #SH-10491 — Sales Order", flow: "Shopify → SAP B1", status: "Success", latency: "0.5s" },
+                { name: "PRC-MATRIX — Price Tier Matrix", flow: "SAP B1 → Shopify", status: "Synced", latency: "0.8s" },
+              ].map((row, i) => (
+                <div class:list={["grid grid-cols-12 gap-2 items-center px-3 py-2 border-b border-primary/5 dark:border-neutral-700/40 last:border-0", i === 0 && "app-row-cursor"]}>
                   <div class="col-span-5 flex items-center gap-2">
-                    <div class={`w-5 h-5 rounded-full ${i % 2 === 0 ? 'bg-primary/30' : 'bg-accent/40'}`}></div>
-                    <div
-                      class="app-customer-bar h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-600"
-                      style={`width: ${[60, 72, 50, 64][i - 1]}%; animation-delay: ${(i - 1) * 750}ms;`}
-                    ></div>
-                    {i === 1 && <span class="app-blink-cursor inline-block w-[2px] h-3 bg-primary"></span>}
+                    <div class={`w-2 h-2 rounded-full ${i % 2 === 0 ? 'bg-primary' : 'bg-emerald-500'}`}></div>
+                    <span class="text-[11px] font-medium text-neutral-700 dark:text-neutral-200 truncate">{row.name}</span>
+                    {i === 0 && <span class="app-blink-cursor inline-block w-[2px] h-3 bg-primary"></span>}
                   </div>
                   <div class="col-span-3">
-                    <div class="inline-block px-1.5 py-0.5 rounded text-[9px] bg-primary/10 text-primary">{['Pro', 'Team', 'Pro', 'Enterprise'][i - 1]}</div>
+                    <span class="inline-block px-1.5 py-0.5 rounded text-[9px] font-semibold bg-primary/10 text-primary">{row.flow}</span>
                   </div>
                   <div class="col-span-2">
                     <div class="inline-flex items-center gap-1">
-                      <div class={`w-1.5 h-1.5 rounded-full ${i === 3 ? 'bg-amber-400' : 'bg-emerald-400'}`}></div>
-                      <span class="text-[9px] text-neutral-500 dark:text-neutral-400">{i === 3 ? 'Trial' : 'Active'}</span>
+                      <div class="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
+                      <span class="text-[9px] font-medium text-emerald-600 dark:text-emerald-400">{row.status}</span>
                     </div>
                   </div>
-                  <div class="col-span-2 text-right text-[10px] font-medium text-neutral-700 dark:text-neutral-200">${[148, 89, 49, 290][i - 1]}</div>
+                  <div class="col-span-2 text-right text-[10px] font-medium text-neutral-700 dark:text-neutral-200">{row.latency}</div>
                 </div>
               ))}
             </div>
           </div>
         </div>
       </BrowserFrame>
-      <p class="text-center text-xs text-neutral-400 dark:text-neutral-500 mt-4">Replace this mock with your own product screenshot — see <code class="text-primary">src/pages/index.astro</code>.</p>
+      <p class="text-center text-xs text-neutral-400 dark:text-neutral-500 mt-4">
+        Pemantauan real-time dengan audit trail lengkap dan fitur retry otomatis jika koneksi SAP offline.
+      </p>
     </div>
   </section>
 
   <!-- 7. Use Cases -->
   <section class="py-16 md:py-24 site-container">
-    <SectionHeader title="Made for different kinds of SaaS" description="Whether you're shipping an AI tool, a developer platform, or an indie side project — the layout system adapts to your product." />
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-8" >
+    <SectionHeader
+      title="Dirancang untuk Beragam Model Bisnis"
+      description="Baik Anda mengelola toko DTC, distributor B2B dengan banyak gudang, atau konsultan implementasi SAP."
+    />
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-8">
       {useCases.map((uc, i) => (
         <div
-          class="flex flex-col items-center p-4 rounded-xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 dark:border-neutral-700 text-center hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+          class="flex flex-col items-center p-5 rounded-2xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10 dark:border-neutral-700 text-center hover:shadow-md hover:-translate-y-1 transition-all duration-300"
           data-aos="fade-up-sm"
-          data-aos-delay={i * 120}
+          data-aos-delay={i * 100}
           data-aos-once="true"
         >
-          <uc.icon class="w-6 h-6 text-primary mb-2" />
+          <div class="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary mb-3">
+            <uc.icon class="w-6 h-6" />
+          </div>
           <span class="text-sm font-semibold text-neutral-800 dark:text-neutral-100">{uc.label}</span>
-          <span class="text-xs text-neutral-400 mt-1">{uc.desc}</span>
+          <span class="text-xs text-neutral-400 mt-1 leading-relaxed">{uc.desc}</span>
         </div>
       ))}
     </div>
   </section>
 
-
-
   <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700 my-4 site-container"></div>
 
-  <!-- 9. Tech Stack -->
+  <!-- 8. Tech Stack Architecture -->
   <section class="py-16 md:py-24 site-container" data-aos="fade-up-sm" data-aos-once="true">
-    <SectionHeader title="Built with modern tools" />
+    <SectionHeader
+      title="Fondasi Teknologi Cloud-Native & Andal"
+      description="Stack teknologi yang teruji menjamin stabilitas data, skalabilitas tinggi, serta keamanan transaksi tanpa henti."
+    />
     <div class="mt-8" data-aos="fade-up-sm" data-aos-once="true" data-aos-delay="300">
       <TechStackCard />
     </div>
   </section>
 
-  <!-- 10. Pricing -->
+  <!-- 9. Pricing Preview -->
   <Pricing
-    title="Free template, real pricing examples"
-    description="RicoFast itself is MIT-licensed and free. The 3-tier layout below is reference content — swap in your own plans when you launch."
+    title="Pilihan Paket Integrasi"
+    description="Skema investasi transparan yang tumbuh bersama volume transaksi dan kebutuhan integrasi bisnis Anda."
   />
 
   <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700 my-4 site-container"></div>
 
-  <!-- 11. FAQ -->
+  <!-- 10. FAQ -->
   <FAQ
-    title="Frequently asked questions"
+    title="Pertanyaan yang Sering Diajukan (FAQ)"
     items={faqItems}
   />
 
-  <!-- 12. Latest Articles -->
+  <!-- 11. Latest Articles -->
   <div class="py-16 md:py-24">
-    <BlogSection title="Latest articles" />
+    <BlogSection title="Artikel & Wawasan Integrasi" />
   </div>
 
-  <!-- 13. Final CTA -->
-  <section class="py-12 md:py-20 site-container  rounded-xl bg-bg-secondary dark:bg-bg-secondary-dark border border-primary/10" data-aos="fade-up-xs" data-aos-once="true">
-    <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-brand mb-4" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="200" >Start building your SaaS today</h2>
-      <p class="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="300">
-        Clone the template, replace the content, ship to production. Three steps to a live site.
+  <!-- 12. Final CTA -->
+  <section class="py-14 md:py-20 site-container rounded-3xl bg-gradient-to-b from-bg-secondary to-bg-secondary/70 dark:from-bg-secondary-dark dark:to-bg-secondary-dark/70 border border-primary/15 shadow-sm" data-aos="fade-up-xs" data-aos-once="true">
+    <div class="max-w-2xl mx-auto text-center px-4">
+      <h2 class="text-3xl md:text-4xl font-brand mb-4 text-neutral-900 dark:text-white" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="200">
+        Siap Mengotomatiskan Integrasi Shopify × SAP B1 Anda?
+      </h2>
+      <p class="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed text-base" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="300">
+        Hubungi kami sekarang untuk demonstrasi live, pemetaan kebutuhan sistem, dan konsultasi teknis bersama tim spesialis kami.
       </p>
-      <div class="flex flex-wrap justify-center gap-3" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="400">
-        <Button url={siteConfig.social.github} type="fill" className="text-lg px-8 py-3" target="_blank">
-          Get Template <ArrowRight size={18} />
+      <div class="flex flex-wrap justify-center gap-3.5" data-aos="fade-up-xs" data-aos-once="true" data-aos-delay="400">
+        <Button url="/contact" type="fill" className="text-base px-8 py-3">
+          Konsultasi & Demo Gratis <ArrowRight size={18} class="ml-1" />
         </Button>
-        <Button url="/features" className="text-lg px-8 py-3">
-          View Features
+        <Button url="/features" className="text-base px-8 py-3">
+          Lihat Fitur Lengkap
         </Button>
       </div>
     </div>
@@ -416,23 +502,11 @@ const logos = [
     to { visibility: hidden; }
   }
 
-  /* ─── Customer bars — staggered "live data" flux ── */
-  .app-customer-bar {
-    transform-origin: left center;
-    animation: app-bar-flux 4.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  }
-  @keyframes app-bar-flux {
-    0%, 100% { transform: scaleX(1);    opacity: 1; }
-    35%      { transform: scaleX(0.72); opacity: 0.78; }
-    70%      { transform: scaleX(1.06); opacity: 1; }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .app-live-dot::before,
     .app-nav-active::after,
     .app-stat-card::before,
-    .app-blink-cursor,
-    .app-customer-bar {
+    .app-blink-cursor {
       animation: none !important;
     }
   }
